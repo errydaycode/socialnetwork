@@ -13,12 +13,12 @@ const Myposts = () => {
                 <button>Remove post</button>
             </div>
             <div className={s.posts}>
-              <Post/>
-              <Post/>
-              <Post/>
-              <Post/>
-              <Post/>
-              <Post/>
+              <Post message={"Yo, I'm God of Death"}
+                    likesCount={234}
+              />
+              <Post message={"Wassup. Have you lost your Death Note? "}
+                    likesCount={172}
+              />
             </div>
         </div>
     );

@@ -5,10 +5,10 @@
 }
 
 .item {
-    color: peachpuff;
+    color: whitesmoke;
 }
 
 
 .item.active {
-    color: whitesmoke;
+    color: gold;
 }
