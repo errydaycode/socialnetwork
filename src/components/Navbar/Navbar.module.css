@@ -2,6 +2,7 @@
     grid-area: n;
     background-color: black;
     color: white;
+    padding: 20px;
 }
 
 .item {
@@ -9,6 +10,11 @@
 }
 
 
-.item.active {
+.item a.active {
     color: gold;
+}
+
+.item a {
+    color: whitesmoke;
+    text-decoration: none;
 }
