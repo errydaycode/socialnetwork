@@ -11,11 +11,12 @@ type postsDataType= {
 
 const Myposts = () => {
 
-    let postsData: postsDataType[] = [
+    let posts: postsDataType[] = [
         {id: 1, message: '"Yo, I\'m God of Death"', likesCount: 172},
         {id: 2, message: 'Wassup. Have you lost your Death Note?', likesCount: 172},
-
     ]
+
+    let mappedPosts = posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
 
     return (
         <div className={s.postsBlock}>
@@ -25,12 +26,7 @@ const Myposts = () => {
                <div> <button>Add post</button></div>
             </div>
             <div className={s.posts}>
-              <Post message={postsData[0].message}
-                    likesCount={postsData[0].likesCount}
-              />
-                <Post message={postsData[1].message}
-                      likesCount={postsData[1].likesCount}
-                />
+                {mappedPosts}
             </div>
         </div>
     );
