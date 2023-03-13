@@ -3,20 +3,19 @@ import  s from './Myposts.module.css'
 import {Post} from "./Post/Post";
 
 
-type postsDataType= {
+export type postsDataType= {
     id: number,
     message: string,
     likesCount: number
 }
 
-const Myposts = () => {
+type PropsType ={
+    posts: postsDataType[]
+}
 
-    let posts: postsDataType[] = [
-        {id: 1, message: '"Yo, I\'m God of Death"', likesCount: 172},
-        {id: 2, message: 'Wassup. Have you lost your Death Note?', likesCount: 172},
-    ]
+const Myposts = (props: PropsType) => {
 
-    let mappedPosts = posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
+    let mappedPosts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
 
     return (
         <div className={s.postsBlock}>
