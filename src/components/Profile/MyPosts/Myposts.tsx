@@ -17,12 +17,18 @@ const Myposts = (props: PropsType) => {
 
     let mappedPosts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
 
+    let newPostElement = React.createRef<HTMLTextAreaElement>();
+
+    let addPostHandler =()=> {
+         alert(newPostElement.current?.value)
+    }
+
     return (
         <div className={s.postsBlock}>
            <h3>My posts</h3>
             <div>
-                <div><textarea></textarea></div>
-               <div> <button>Add post</button></div>
+                <div><textarea ref={newPostElement}></textarea></div>
+               <div> <button onClick={addPostHandler}>Add post</button></div>
             </div>
             <div className={s.posts}>
                 {mappedPosts}
