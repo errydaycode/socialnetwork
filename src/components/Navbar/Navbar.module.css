@@ -18,3 +18,21 @@
     color: whitesmoke;
     text-decoration: none;
 }
+
+.friends {
+    margin-top: 15px;
+    font-size: 25px;
+}
+
+.friendsNames {
+    display: flex;
+    font-size: 15px;
+    margin-top: 4px;
+}
+
+.friendsNames img {
+    width: 35px;
+    height: 30px;
+    border-radius: 30px;
+}
+

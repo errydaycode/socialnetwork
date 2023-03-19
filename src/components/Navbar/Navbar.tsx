@@ -1,7 +1,27 @@
 import React from 'react';
 import s from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
-export const Navbar = () => {
+import {FriendsNavType, NavbarType} from "../../redux/state";
+
+
+
+type NavbarPropsType={
+    state: NavbarType
+}
+
+
+export const Navbar = (props: NavbarPropsType) => {
+
+
+    let mappedFriends = props.state.friends.map(el => {
+        return (
+            <div  className={s.friendsNames}>
+                <img src={el.img} alt="avas"/>
+                <span>{el.name} </span>
+            </div>
+        )
+    })
+
     return (
         <nav className={s.nav}>
             <div className={s.item}>
@@ -19,6 +39,16 @@ export const Navbar = () => {
             <div  className={s.item}>
                 <NavLink to={'/settings'} activeClassName={s.active}>Settings</NavLink>
             </div>
+
+
+            <div className={s.friends}>
+                Friends
+
+                    {mappedFriends}
+
+            </div>
+
+
         </nav>
     );
 };

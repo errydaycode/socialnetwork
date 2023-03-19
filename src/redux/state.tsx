@@ -1,5 +1,6 @@
 import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
 import {postsDataType} from "../components/Profile/MyPosts/Myposts";
+import React from "react";
 
 
 
@@ -13,11 +14,24 @@ export type profilePageType={
     posts: postsDataType[]
 }
 
+export type FriendsNavType={
+    id: number
+    name: string
+    img: string
+}
+
+export type NavbarType={
+    friends: FriendsNavType[]
+}
+
+
 export type statePropsType = {
     messagesPage: messagesPageType
     profilePage: profilePageType
+    navbar: NavbarType
 }
 
+let avatars = "https://pristor.ru/wp-content/uploads/2019/09/%D0%90%D0%BD%D0%B8%D0%BC%D0%B5-%D1%82%D0%B5%D1%82%D1%80%D0%B0%D0%B4%D1%8C-%D1%81%D0%BC%D0%B5%D1%80%D1%82%D0%B8-%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8-%D0%A0%D1%8E%D0%BA%D0%B0010.jpg"
 
 let state: statePropsType = {
 
@@ -44,6 +58,14 @@ let state: statePropsType = {
         posts: [
             {id: 1, message: '"Yo, I\'m God of Death"', likesCount: 172},
             {id: 2, message: 'Wassup. Have you lost your Death Note?', likesCount: 172},
+        ]
+    },
+
+    navbar: {
+        friends: [
+            {id: 1, name: 'Marina', img: avatars},
+            {id: 2, name: 'Anna', img: avatars},
+            {id: 3, name: 'Liza', img: avatars},
         ]
     }
 }
