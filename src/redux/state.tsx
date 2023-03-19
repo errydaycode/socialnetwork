@@ -70,4 +70,9 @@ let state: statePropsType = {
     }
 }
 
+export const addPostCallBack =(postMsg: string)=>{
+    let newPost: postsDataType =  {id: 3, message: postMsg, likesCount: 0}
+    state.profilePage.posts.push(newPost)
+}
+
 export default state;

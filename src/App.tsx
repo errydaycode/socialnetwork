@@ -9,11 +9,12 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {postsDataType} from "./components/Profile/MyPosts/Myposts";
-import {statePropsType} from "./redux/state";
+import {addPostCallBack, statePropsType} from "./redux/state";
 
 
 type AppPropsType ={
     state: statePropsType
+    addPostCallBack : (postMsg: string)=> void
 }
 
 
@@ -27,7 +28,10 @@ function App(props: AppPropsType) {
                     <Route  path={'/dialogs'} render={()=> <Dialogs state={props.state.messagesPage}
                     />}
                     />
-                    <Route  path={'/profile'} render={()=> <Profile state={props.state.profilePage}/>}/>
+                    <Route  path={'/profile'} render={()=> <Profile state={props.state.profilePage}
+                                                                    addPostCallBack={props.addPostCallBack}
+
+                    />}/>
                     <Route path={'/news'} render={ ()=> <News/>}/>
                     <Route  path={'/music'} render={ ()=>  <Music/>}/>
                     <Route  path={'/settings'} render={()=>  <Settings/>}/>

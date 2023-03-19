@@ -11,6 +11,7 @@ export type postsDataType= {
 
 type PropsType ={
     posts: postsDataType[]
+    addPostCallBack : (postMsg: string)=> void
 }
 
 const Myposts = (props: PropsType) => {
@@ -20,7 +21,10 @@ const Myposts = (props: PropsType) => {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let addPostHandler =()=> {
-         alert(newPostElement.current?.value)
+            if(newPostElement.current) {
+                props.addPostCallBack(newPostElement.current.value)
+            }
+
     }
 
     return (
