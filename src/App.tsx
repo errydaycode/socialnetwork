@@ -20,7 +20,7 @@ type AppPropsType ={
 
 function App(props: AppPropsType) {
     return (
-        <BrowserRouter>
+
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar state={props.state.navbar}/>
@@ -37,7 +37,7 @@ function App(props: AppPropsType) {
                     <Route  path={'/settings'} render={()=>  <Settings/>}/>
                 </div>
             </div>
-            </BrowserRouter>
+
             );
             }
 

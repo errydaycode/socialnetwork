@@ -1,6 +1,7 @@
 import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
 import {postsDataType} from "../components/Profile/MyPosts/Myposts";
 import React from "react";
+import {rerenderEntireTree} from "../render";
 
 
 
@@ -33,7 +34,7 @@ export type statePropsType = {
 
 let avatars = "https://pristor.ru/wp-content/uploads/2019/09/%D0%90%D0%BD%D0%B8%D0%BC%D0%B5-%D1%82%D0%B5%D1%82%D1%80%D0%B0%D0%B4%D1%8C-%D1%81%D0%BC%D0%B5%D1%80%D1%82%D0%B8-%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8-%D0%A0%D1%8E%D0%BA%D0%B0010.jpg"
 
-let state: statePropsType = {
+export let state: statePropsType = {
 
     messagesPage: {
         dialogs: [
@@ -71,8 +72,9 @@ let state: statePropsType = {
 }
 
 export const addPostCallBack =(postMsg: string)=>{
+
     let newPost: postsDataType =  {id: 3, message: postMsg, likesCount: 0}
     state.profilePage.posts.push(newPost)
+    rerenderEntireTree(state);
 }
 
-export default state;

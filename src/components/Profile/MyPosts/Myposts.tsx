@@ -23,6 +23,7 @@ const Myposts = (props: PropsType) => {
     let addPostHandler =()=> {
             if(newPostElement.current) {
                 props.addPostCallBack(newPostElement.current.value)
+                newPostElement.current.value = ''
             }
 
     }
