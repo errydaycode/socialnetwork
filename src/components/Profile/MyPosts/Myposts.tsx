@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './Myposts.module.css'
 import {Post} from "./Post/Post";
 
@@ -29,13 +29,17 @@ const Myposts = (props: MyPostsPropsType) => {
         props.updateNewPostText(e.currentTarget.value)
 
     }
-
+    let onKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+     if    (e.key === 'Enter') {
+         addPostHandler()
+     }
+    }
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea  value={props.newPostText} onChange={onPostChange}/>
+                    <textarea  value={props.newPostText} onChange={onPostChange} onKeyPress={onKeyPressHandler}/>
                 </div>
                 <div>
                     <button onClick={addPostHandler}>Add post</button>
