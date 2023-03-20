@@ -1,39 +1,45 @@
-import React from 'react';
-import  s from './Myposts.module.css'
+import React, {ChangeEvent} from 'react';
+import s from './Myposts.module.css'
 import {Post} from "./Post/Post";
 
 
-export type postsDataType= {
+export type postsDataType = {
     id: number,
     message: string,
     likesCount: number
 }
 
-type PropsType ={
+type MyPostsPropsType = {
     posts: postsDataType[]
-    addPostCallBack : (postMsg: string)=> void
+    addPostCallBack: () => void
+    newPostText: string
+    updateNewPostText: (postMsg: string) => void
 }
 
-const Myposts = (props: PropsType) => {
+const Myposts = (props: MyPostsPropsType) => {
 
     let mappedPosts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
 
-    let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    let addPostHandler =()=> {
-            if(newPostElement.current) {
-                props.addPostCallBack(newPostElement.current.value)
-                newPostElement.current.value = ''
-            }
+    let addPostHandler = () => {
+        props.addPostCallBack()
+    }
+
+    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(e.currentTarget.value)
 
     }
 
     return (
         <div className={s.postsBlock}>
-           <h3>My posts</h3>
+            <h3>My posts</h3>
             <div>
-                <div><textarea ref={newPostElement}></textarea></div>
-               <div> <button onClick={addPostHandler}>Add post</button></div>
+                <div>
+                    <textarea  value={props.newPostText} onChange={onPostChange}/>
+                </div>
+                <div>
+                    <button onClick={addPostHandler}>Add post</button>
+                </div>
             </div>
             <div className={s.posts}>
                 {mappedPosts}

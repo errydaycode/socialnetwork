@@ -13,6 +13,7 @@ export type messagesPageType={
 
 export type profilePageType={
     posts: postsDataType[]
+    newPostText: string
 }
 
 export type FriendsNavType={
@@ -30,6 +31,7 @@ export type statePropsType = {
     messagesPage: messagesPageType
     profilePage: profilePageType
     navbar: NavbarType
+
 }
 
 let avatars = "https://pristor.ru/wp-content/uploads/2019/09/%D0%90%D0%BD%D0%B8%D0%BC%D0%B5-%D1%82%D0%B5%D1%82%D1%80%D0%B0%D0%B4%D1%8C-%D1%81%D0%BC%D0%B5%D1%80%D1%82%D0%B8-%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8-%D0%A0%D1%8E%D0%BA%D0%B0010.jpg"
@@ -59,7 +61,8 @@ export let state: statePropsType = {
         posts: [
             {id: 1, message: '"Yo, I\'m God of Death"', likesCount: 172},
             {id: 2, message: 'Wassup. Have you lost your Death Note?', likesCount: 172},
-        ]
+        ],
+        newPostText: ''
     },
 
     navbar: {
@@ -71,10 +74,15 @@ export let state: statePropsType = {
     }
 }
 
-export const addPostCallBack =(postMsg: string)=>{
-
-    let newPost: postsDataType =  {id: 3, message: postMsg, likesCount: 0}
+export const addPostCallBack =()=>{
+    let newPost: postsDataType =  {id: 3, message: state.profilePage.newPostText, likesCount: 0}
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
     rerenderEntireTree(state);
 }
 
+
+export const updateNewPostText =(postMsg: string)=>{
+    state.profilePage.newPostText = postMsg
+    rerenderEntireTree(state);
+}

@@ -4,8 +4,10 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {profilePageType} from "../../redux/state";
 
 type ProfileProps={
-    state: profilePageType
-    addPostCallBack : (postMsg: string)=> void
+    profilePage: profilePageType
+    addPostCallBack : ()=> void
+    updateNewPostText: (postMsg: string)=> void
+
 }
 
 
@@ -14,7 +16,11 @@ export const Profile = (props: ProfileProps) => {
     return (
         <div>
             <ProfileInfo/>
-            <Myposts posts={props.state.posts} addPostCallBack={props.addPostCallBack}/>
+            <Myposts posts={props.profilePage.posts}
+                     addPostCallBack={props.addPostCallBack}
+                    newPostText={props.profilePage.newPostText}
+                     updateNewPostText={props.updateNewPostText}
+            />
         </div>
     );
 };
