@@ -16,6 +16,8 @@ type AppPropsType ={
     state: statePropsType
     addPostCallBack : ()=> void
     updateNewPostText : (postMsg: string)=> void
+    updateNewMessageText: (msg: string) => void
+    alertNewMessage: ()=> void
 }
 
 
@@ -27,6 +29,10 @@ function App(props: AppPropsType) {
                 <Navbar state={props.state.navbar}/>
                 <div className={'app-wrapper-content'}>
                     <Route  path={'/dialogs'} render={()=> <Dialogs state={props.state.messagesPage}
+                                                                    alertNewMessage={props.alertNewMessage}
+                                                                    updateNewMessageText={props.updateNewMessageText}
+                                                                    newMessageText={props.state.messagesPage.newMessageText}
+
                     />}
                     />
                     <Route  path={'/profile'} render={()=> <Profile profilePage={props.state.profilePage}

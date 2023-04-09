@@ -1,13 +1,14 @@
 import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
 import {postsDataType} from "../components/Profile/MyPosts/Myposts";
 import React from "react";
-import {rerenderEntireTree} from "../render";
+
 
 
 
 export type messagesPageType={
     dialogs: dialogsDataType[]
     messages: messagesDataType[]
+    newMessageText: string
 }
 
 
@@ -36,6 +37,14 @@ export type statePropsType = {
 
 let avatars = "https://pristor.ru/wp-content/uploads/2019/09/%D0%90%D0%BD%D0%B8%D0%BC%D0%B5-%D1%82%D0%B5%D1%82%D1%80%D0%B0%D0%B4%D1%8C-%D1%81%D0%BC%D0%B5%D1%80%D1%82%D0%B8-%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8-%D0%A0%D1%8E%D0%BA%D0%B0010.jpg"
 
+
+let rerenderEntireTree =()=> {
+    console.log('hello')
+}
+export const subscribe = (observer: ()=> void) => {
+    rerenderEntireTree = observer
+}
+
 export let state: statePropsType = {
 
     messagesPage: {
@@ -55,7 +64,8 @@ export let state: statePropsType = {
             {id: 4, message: 'Yo!'},
             {id: 5, message: 'Russia!'},
             {id: 6, message: 'USA!'}
-        ]
+        ],
+        newMessageText: ''
     },
     profilePage : {
         posts: [
@@ -78,11 +88,23 @@ export const addPostCallBack =()=>{
     let newPost: postsDataType =  {id: 3, message: state.profilePage.newPostText, likesCount: 0}
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ''
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
 
 
 export const updateNewPostText =(postMsg: string)=>{
     state.profilePage.newPostText = postMsg
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
+
+export const updateNewMessageText = (newMessage: string)=> {
+    state.messagesPage.newMessageText = newMessage
+    rerenderEntireTree()
+}
+
+export const alertNewMessage = () => {
+    alert(state.messagesPage.newMessageText)
+    state.messagesPage.newMessageText = ''
+    rerenderEntireTree()
+}
+

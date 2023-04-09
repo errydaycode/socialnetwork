@@ -18,7 +18,7 @@ export const Profile = (props: ProfileProps) => {
             <ProfileInfo/>
             <Myposts posts={props.profilePage.posts}
                      addPostCallBack={props.addPostCallBack}
-                    newPostText={props.profilePage.newPostText}
+                     newPostText={props.profilePage.newPostText}
                      updateNewPostText={props.updateNewPostText}
             />
         </div>
