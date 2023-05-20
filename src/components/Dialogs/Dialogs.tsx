@@ -1,8 +1,8 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, KeyboardEvent}  from 'react';
 import  s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {alertNewMessage, messagesPageType, updateNewMessageText} from "../../redux/state";
+import {addNewMessage, messagesPageType, updateNewMessageText} from "../../redux/state";
 
 
 
@@ -24,7 +24,7 @@ type DialogsPropsType={
 type stateProps={
     state:DialogsPropsType
     updateNewMessageText: (msg: string) => void
-    alertNewMessage: ()=> void
+    addNewMessage: ()=> void
     newMessageText: string
 }
 
@@ -38,12 +38,21 @@ export const Dialogs = (props:stateProps ) => {
 
 
     const addMessage = ()=> {
-        props.alertNewMessage()
+        props.addNewMessage()
     }
+    const onKeyDownHandler =(e: KeyboardEvent<HTMLTextAreaElement>)=> {
+        if(e.key === 'Enter') {
+            addMessage()
+        }
+
+    }
+
 
     const onNewMessageChangeHandler =(e: ChangeEvent<HTMLTextAreaElement>)=> {
        props.updateNewMessageText(e.currentTarget.value)
     }
+
+
 
     return (
         <div className={s.dialogs}>
@@ -55,8 +64,8 @@ export const Dialogs = (props:stateProps ) => {
             </div>
 
             <div>
-                <textarea value={props.newMessageText}  onChange={onNewMessageChangeHandler}></textarea>
-                <button onClick={addMessage}>send message</button>
+                <textarea onKeyDown={onKeyDownHandler} value={props.newMessageText}  onChange={onNewMessageChangeHandler}></textarea>
+                <button  onClick={addMessage}>send message</button>
             </div>
 
 

@@ -7,7 +7,7 @@ import {
     statePropsType,
     updateNewPostText,
     updateNewMessageText,
-    alertNewMessage,
+    addNewMessage,
     state,
     subscribe
 } from "./redux/state";
@@ -19,7 +19,7 @@ const rerenderEntireTree =()=> {
             <App state={state} addPostCallBack={addPostCallBack}
                  updateNewPostText={updateNewPostText}
                  updateNewMessageText={updateNewMessageText}
-                 alertNewMessage={alertNewMessage}
+                 addNewMessage={addNewMessage}
 
             />
         </BrowserRouter>,

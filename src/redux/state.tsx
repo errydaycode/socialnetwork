@@ -102,8 +102,9 @@ export const updateNewMessageText = (newMessage: string)=> {
     rerenderEntireTree()
 }
 
-export const alertNewMessage = () => {
-    alert(state.messagesPage.newMessageText)
+export const addNewMessage = () => {
+    const newMessage: messagesDataType = {id: state.messagesPage.messages.length + 1, message: state.messagesPage.newMessageText}
+    state.messagesPage.messages.push(newMessage)
     state.messagesPage.newMessageText = ''
     rerenderEntireTree()
 }

@@ -4,7 +4,7 @@ import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Dialogs, dialogsDataType, messagesDataType} from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
@@ -17,7 +17,7 @@ type AppPropsType ={
     addPostCallBack : ()=> void
     updateNewPostText : (postMsg: string)=> void
     updateNewMessageText: (msg: string) => void
-    alertNewMessage: ()=> void
+    addNewMessage: ()=> void
 }
 
 
@@ -28,8 +28,9 @@ function App(props: AppPropsType) {
                 <Header/>
                 <Navbar state={props.state.navbar}/>
                 <div className={'app-wrapper-content'}>
+                    <Route exact path="/" render={() => <Redirect to="/profile" />} />
                     <Route  path={'/dialogs'} render={()=> <Dialogs state={props.state.messagesPage}
-                                                                    alertNewMessage={props.alertNewMessage}
+                                                                    addNewMessage={props.addNewMessage}
                                                                     updateNewMessageText={props.updateNewMessageText}
                                                                     newMessageText={props.state.messagesPage.newMessageText}
 
