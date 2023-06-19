@@ -4,9 +4,6 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {addNewMessage, messagesPageType, updateNewMessageText} from "../../redux/state";
 
-
-
-
 export type dialogsDataType ={
     id: number
     name: string
@@ -30,12 +27,8 @@ type stateProps={
 
 export const Dialogs = (props:stateProps ) => {
 
-
-
     let mappedDialogs = props.state.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/> )
     let mappedMessages = props.state.messages.map(m => <Message message={m.message}/> )
-
-
 
     const addMessage = ()=> {
         props.addNewMessage()
@@ -44,15 +37,11 @@ export const Dialogs = (props:stateProps ) => {
         if(e.key === 'Enter') {
             addMessage()
         }
-
     }
-
 
     const onNewMessageChangeHandler =(e: ChangeEvent<HTMLTextAreaElement>)=> {
        props.updateNewMessageText(e.currentTarget.value)
     }
-
-
 
     return (
         <div className={s.dialogs}>
