@@ -35,7 +35,7 @@ export type statePropsType = {
 
 }
 
-let avatars = "https://pristor.ru/wp-content/uploads/2019/09/%D0%90%D0%BD%D0%B8%D0%BC%D0%B5-%D1%82%D0%B5%D1%82%D1%80%D0%B0%D0%B4%D1%8C-%D1%81%D0%BC%D0%B5%D1%80%D1%82%D0%B8-%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8-%D0%A0%D1%8E%D0%BA%D0%B0010.jpg"
+let avatars = "https://static.mk.ru/upload/entities/2019/02/05/16/articles/facebookPicture/1e/3d/4d/c0/8c2d70267a07ec38f9e61811170bb911.jpg"
 
 
 let rerenderEntireTree =()=> {
@@ -102,7 +102,7 @@ export const updateNewMessageText = (newMessage: string)=> {
     rerenderEntireTree()
 }
 
-export const addNewMessage = () => {
+export const addNewMessage  = () => {
     const newMessage: messagesDataType = {id: state.messagesPage.messages.length + 1, message: state.messagesPage.newMessageText}
     state.messagesPage.messages.push(newMessage)
     state.messagesPage.newMessageText = ''
