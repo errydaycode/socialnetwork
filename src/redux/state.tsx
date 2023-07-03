@@ -69,8 +69,8 @@ export let state: statePropsType = {
     },
     profilePage : {
         posts: [
-            {id: 1, message: '"Yo, I\'m God of Death"', likesCount: 172},
-            {id: 2, message: 'Wassup. Have you lost your Death Note?', likesCount: 172},
+            {id: 1, message: 'Ты... это...заходи, если что!..', likesCount: 172},
+            {id: 2, message: 'Щас спою!', likesCount: 172},
         ],
         newPostText: ''
     },
@@ -85,7 +85,8 @@ export let state: statePropsType = {
 }
 
 export const addPostCallBack =()=>{
-    let newPost: postsDataType =  {id: 3, message: state.profilePage.newPostText, likesCount: 0}
+    let newPost: postsDataType =  {id: state.profilePage.posts.length + 1, message: state.profilePage.newPostText, likesCount: 199}
+    // console.log(newPost.id)
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ''
     rerenderEntireTree();

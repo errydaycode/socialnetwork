@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import {
     addPostCallBack,
-    statePropsType,
     updateNewPostText,
     updateNewMessageText,
     addNewMessage,
@@ -13,10 +12,13 @@ import {
 } from "./redux/state";
 import {BrowserRouter} from "react-router-dom";
 
+
+
 const rerenderEntireTree =()=> {
     ReactDOM.render(
         <BrowserRouter>
-            <App state={state} addPostCallBack={addPostCallBack}
+            <App state={state}
+                 addPostCallBack={addPostCallBack}
                  updateNewPostText={updateNewPostText}
                  updateNewMessageText={updateNewMessageText}
                  addNewMessage={addNewMessage}
