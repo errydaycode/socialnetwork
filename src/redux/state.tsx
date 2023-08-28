@@ -1,29 +1,27 @@
 import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
-import {postsDataType} from "../components/Profile/MyPosts/Myposts";
+import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
 import React from "react";
 
 
-
-
-export type messagesPageType={
+export type messagesPageType = {
     dialogs: dialogsDataType[]
     messages: messagesDataType[]
     newMessageText: string
 }
 
 
-export type profilePageType={
+export type profilePageType = {
     posts: postsDataType[]
     newPostText: string
 }
 
-export type FriendsNavType={
+export type FriendsNavType = {
     id: number
     name: string
     img: string
 }
 
-export type NavbarType={
+export type NavbarType = {
     friends: FriendsNavType[]
 }
 
@@ -38,10 +36,10 @@ export type statePropsType = {
 let avatars = "https://static.mk.ru/upload/entities/2019/02/05/16/articles/facebookPicture/1e/3d/4d/c0/8c2d70267a07ec38f9e61811170bb911.jpg"
 
 
-let rerenderEntireTree =()=> {
+let rerenderEntireTree = () => {
     console.log('hello')
 }
-export const subscribe = (observer: ()=> void) => {
+export const subscribe = (observer: () => void) => {
     rerenderEntireTree = observer
 }
 
@@ -67,7 +65,7 @@ export let state: statePropsType = {
         ],
         newMessageText: ''
     },
-    profilePage : {
+    profilePage: {
         posts: [
             {id: 1, message: 'Ты... это...заходи, если что!..', likesCount: 172},
             {id: 2, message: 'Щас спою!', likesCount: 172},
@@ -84,27 +82,34 @@ export let state: statePropsType = {
     }
 }
 
-export const addPostCallBack =()=>{
-    let newPost: postsDataType =  {id: state.profilePage.posts.length + 1, message: state.profilePage.newPostText, likesCount: 199}
-    // console.log(newPost.id)
+export const addPostCallBack = () => {
+    let newPost: postsDataType =
+        {
+            id: state.profilePage.posts.length + 1,
+            message: state.profilePage.newPostText,
+            likesCount: 0
+        };
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ''
     rerenderEntireTree();
 }
 
 
-export const updateNewPostText =(postMsg: string)=>{
+export const updateNewPostText = (postMsg: string) => {
     state.profilePage.newPostText = postMsg
     rerenderEntireTree();
 }
 
-export const updateNewMessageText = (newMessage: string)=> {
+export const updateNewMessageText = (newMessage: string) => {
     state.messagesPage.newMessageText = newMessage
     rerenderEntireTree()
 }
 
-export const addNewMessage  = () => {
-    const newMessage: messagesDataType = {id: state.messagesPage.messages.length + 1, message: state.messagesPage.newMessageText}
+export const addNewMessage = () => {
+    const newMessage: messagesDataType = {
+        id: state.messagesPage.messages.length + 1,
+        message: state.messagesPage.newMessageText
+    }
     state.messagesPage.messages.push(newMessage)
     state.messagesPage.newMessageText = ''
     rerenderEntireTree()

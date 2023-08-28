@@ -8,7 +8,7 @@ import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {postsDataType} from "./components/Profile/MyPosts/Myposts";
+import {postsDataType} from "./components/Profile/MyPosts/MyPosts";
 import {addPostCallBack, statePropsType, updateNewPostText} from "./redux/state";
 
 

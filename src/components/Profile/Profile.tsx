@@ -1,5 +1,5 @@
 import React from 'react';
-import Myposts, {postsDataType} from "./MyPosts/Myposts";
+import MyPosts, {postsDataType} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {profilePageType} from "../../redux/state";
 
@@ -16,7 +16,7 @@ export const Profile = (props: ProfileProps) => {
     return (
         <div>
             <ProfileInfo/>
-            <Myposts posts={props.profilePage.posts}
+            <MyPosts posts={props.profilePage.posts}
                      addPostCallBack={props.addPostCallBack}
                      newPostText={props.profilePage.newPostText}
                      updateNewPostText={props.updateNewPostText}

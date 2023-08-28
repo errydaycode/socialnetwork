@@ -16,7 +16,7 @@ type MyPostsPropsType = {
     updateNewPostText: (postMsg: string) => void
 }
 
-const  Myposts = (props: MyPostsPropsType) => {
+const  MyPosts = (props: MyPostsPropsType) => {
 
     let mappedPosts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
 
@@ -52,4 +52,4 @@ const  Myposts = (props: MyPostsPropsType) => {
     );
 };
 
-export default Myposts;
+export default MyPosts;
