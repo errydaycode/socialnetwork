@@ -37,10 +37,13 @@ let avatars = "https://static.mk.ru/upload/entities/2019/02/05/16/articles/faceb
 
 
 let rerenderEntireTree = () => {
-    console.log('hello')
+    console.log('state has changed')
 }
+
+
 export const subscribe = (observer: () => void) => {
-    rerenderEntireTree = observer
+    rerenderEntireTree = observer // паттерн - обсервер. по факту это и есть настоящий рендер три, который пришел параметром как колл бэк
+        // паблишер-субскрайбер тож читануть мб // по этому же паттерну работает addEventListener // onChange тоже
 }
 
 export let state: statePropsType = {

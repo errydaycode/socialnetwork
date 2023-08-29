@@ -13,8 +13,7 @@ import {
 import {BrowserRouter} from "react-router-dom";
 
 
-
-const rerenderEntireTree =()=> {
+const rerenderEntireTree =( )=> {
     ReactDOM.render(
         <BrowserRouter>
             <App state={state}
@@ -28,5 +27,10 @@ const rerenderEntireTree =()=> {
     );
 }
 
-rerenderEntireTree()
-subscribe(rerenderEntireTree)
+
+rerenderEntireTree() // Первая отрисовка
+
+subscribe(rerenderEntireTree) // это по сути для того, чтобы при изменении стейта в функциях мы могли делать перерисовку, но тк мы не можем импортировать в стейт что-то из индекса, передаем туда нашу функцию параметром в другой функции ( колл-бэком)
+
+
+// внедрять будем объект store
