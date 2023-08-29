@@ -19,10 +19,9 @@ const rerenderEntireTree =()=> {
         <BrowserRouter>
             <App state={state}
                  addPostCallBack={addPostCallBack}
+                 addNewMessage={addNewMessage}
                  updateNewPostText={updateNewPostText}
                  updateNewMessageText={updateNewMessageText}
-                 addNewMessage={addNewMessage}
-
             />
         </BrowserRouter>,
         document.getElementById('root')

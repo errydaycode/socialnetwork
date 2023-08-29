@@ -3,13 +3,12 @@ import './App.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
-import {Dialogs, dialogsDataType, messagesDataType} from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Redirect, Route} from "react-router-dom";
+import {Dialogs, } from "./components/Dialogs/Dialogs";
+import { Redirect, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {postsDataType} from "./components/Profile/MyPosts/MyPosts";
-import {addPostCallBack, statePropsType, updateNewPostText} from "./redux/state";
+import {statePropsType} from "./redux/state";
 
 
 type AppPropsType ={
@@ -39,7 +38,6 @@ function App(props: AppPropsType) {
                     <Route  path={'/profile'} render={()=> <Profile profilePage={props.state.profilePage}
                                                                     addPostCallBack={props.addPostCallBack}
                                                                     updateNewPostText={props.updateNewPostText}
-
 
                     />}/>
                     <Route path={'/news'} render={ ()=> <News/>}/>
