@@ -36,13 +36,13 @@ export type statePropsType = {
 let avatars = "https://static.mk.ru/upload/entities/2019/02/05/16/articles/facebookPicture/1e/3d/4d/c0/8c2d70267a07ec38f9e61811170bb911.jpg"
 
 
-let rerenderEntireTree = () => {
+let onChange = () => {
     console.log('state has changed')
 }
 
 
 export const subscribe = (observer: () => void) => {
-    rerenderEntireTree = observer // паттерн - обсервер. по факту это и есть настоящий рендер три, который пришел параметром как колл бэк
+    onChange = observer // паттерн - обсервер. по факту это и есть настоящий рендер три, который пришел параметром как колл бэк
         // паблишер-субскрайбер тож читануть мб // по этому же паттерну работает addEventListener // onChange тоже
 }
 
@@ -94,18 +94,18 @@ export const addPostCallBack = () => {
         };
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ''
-    rerenderEntireTree();
+    onChange();
 }
 
 
 export const updateNewPostText = (postMsg: string) => {
     state.profilePage.newPostText = postMsg
-    rerenderEntireTree();
+    onChange();
 }
 
 export const updateNewMessageText = (newMessage: string) => {
     state.messagesPage.newMessageText = newMessage
-    rerenderEntireTree()
+    onChange()
 }
 
 export const addNewMessage = () => {
@@ -115,6 +115,6 @@ export const addNewMessage = () => {
     }
     state.messagesPage.messages.push(newMessage)
     state.messagesPage.newMessageText = ''
-    rerenderEntireTree()
+    onChange()
 }
 
