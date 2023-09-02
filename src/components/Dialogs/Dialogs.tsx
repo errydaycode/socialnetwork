@@ -2,7 +2,7 @@ import React, {ChangeEvent, KeyboardEvent}  from 'react';
 import  s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {addNewMessage, messagesPageType, updateNewMessageText} from "../../redux/state";
+
 
 export type dialogsDataType ={
     id: number

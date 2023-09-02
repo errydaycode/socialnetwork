@@ -16,7 +16,8 @@ type MyPostsPropsType = {
     updateNewPostText: (postMsg: string) => void
 }
 
-const  MyPosts = (props: MyPostsPropsType) => {
+const
+    MyPosts = (props: MyPostsPropsType) => {
 
     let mappedPosts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
 
@@ -24,6 +25,7 @@ const  MyPosts = (props: MyPostsPropsType) => {
     let addPostHandler = () => {
         props.addPostCallBack()
     }
+
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updateNewPostText(e.currentTarget.value)
