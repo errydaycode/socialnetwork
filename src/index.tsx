@@ -3,17 +3,15 @@ import './index.css';
 import ReactDOM from 'react-dom';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-
 import {store} from "./redux/state";
 
 const rerenderEntireTree =( )=> {
-
     ReactDOM.render(
         <BrowserRouter>
             <App state={store.getState()}
-                 addPostCallBack={store.addPostCallBack.bind(store)}
-                 addNewMessage={store.addNewMessage.bind(store)}
-                 updateNewPostText={store.updateNewPostText.bind(store)}
+                 addPostCallBack={store.addPostCallBack.bind(store)} // bind - забайндить, привязать, связываем метод с владельцем этого метода, чтобы метод вызывался в контексте своего владельца ( стора)
+                 addNewMessage={store.addNewMessage.bind(store)} // отдавая свой метод кому-то колл-бэком, мы его биндим, чтобы владелец метода сохранился и вызывался метод в контексте своего создателя
+                 updateNewPostText={store.updateNewPostText.bind(store)} // bind не вызывает ф-ию , он байндит её с контекстом, в котором мы хотим чтобы он вызывался, но он не вызывает нашу функцию, а возвращает такую же, равнозначную,  но внутри this всегда будет тем контекстом, который мы закинули в него
                  updateNewMessageText={store.updateNewMessageText.bind(store)}
             />
         </BrowserRouter>,
