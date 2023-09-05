@@ -26,6 +26,8 @@ export type statePropsType = {
 
 }
 let avatars = "https://static.mk.ru/upload/entities/2019/02/05/16/articles/facebookPicture/1e/3d/4d/c0/8c2d70267a07ec38f9e61811170bb911.jpg"
+
+
 export type StoreType = {
     _state: statePropsType,
     updateNewPostText: (postMsg: string) => void
@@ -35,13 +37,20 @@ export type StoreType = {
     updateNewMessageText: (message: string) => void
     subscribe: (callback: ()=> void) => void
     getState: ()=> statePropsType
-    dispatch: (action: any) => void
+    dispatch: (action: AddPostActionType | UpdateNewPostTextActionType) => void
 }
 
+type AddPostActionType = {
+    type: 'ADD-POST'
+}
+type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    postMsg: string
+}
+
+
 export const store: StoreType = {
-    _callSubscriber(){
-        console.log('state has changed')
-    },
+    // приватные методы и свойства
     _state:  {
         messagesPage: {
             dialogs: [
@@ -79,6 +88,19 @@ export const store: StoreType = {
             ]
         }
     },
+    _callSubscriber(){
+        console.log('state has changed')
+    },
+    // не меняют стейт
+    subscribe(observer){
+        this._callSubscriber = observer // паттерн - обсервер. по факту это и есть настоящий рендер три, который пришел параметром как колл бэк
+        // паблишер-субскрайбер тож читануть мб // по этому же паттерну работает addEventListener // onChange тоже
+    },
+    getState(){
+        return this._state
+    },
+
+    // меняют стейт
      updateNewPostText(postMsg: string)  {
          this._state.profilePage.newPostText = postMsg
          this._callSubscriber();
@@ -107,28 +129,21 @@ export const store: StoreType = {
          this._state.messagesPage.newMessageText = newMessage
          this._callSubscriber()
      },
-
-     subscribe(observer){
-         this._callSubscriber = observer // паттерн - обсервер. по факту это и есть настоящий рендер три, который пришел параметром как колл бэк
-         // паблишер-субскрайбер тож читануть мб // по этому же паттерну работает addEventListener // onChange тоже
-     },
-     getState(){
-        return this._state
-     },
-    dispatch(action){
-        if(action.type === 'ADD-POST') {
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
             let newPost: postsDataType =
                 {
                     id: this._state.profilePage.posts.length + 1,
                     message: this._state.profilePage.newPostText,
                     likesCount: 0
-                }  ;
+                };
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = ''
             this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.postMsg
+            this._callSubscriber();
         }
-        }
-
-
+    }
 }
 
