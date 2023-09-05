@@ -2,6 +2,7 @@ import React, {ChangeEvent, KeyboardEvent}  from 'react';
 import  s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
+import {ActionTypes, AddMessageAC, UpdateNewMessageTextAC} from "../../redux/state";
 
 
 export type dialogsDataType ={
@@ -20,8 +21,7 @@ type DialogsPropsType={
 
 type stateProps={
     state:DialogsPropsType
-    updateNewMessageText: (msg: string) => void
-    addNewMessage: ()=> void
+    dispatch: (action: ActionTypes) => void
     newMessageText: string
 }
 
@@ -31,17 +31,17 @@ export const Dialogs = (props:stateProps ) => {
     let mappedMessages = props.state.messages.map(m => <Message message={m.message}/> )
 
     const addMessage = ()=> {
-        props.addNewMessage()
+        props.dispatch(AddMessageAC())
     }
     const onKeyDownHandler =(e: KeyboardEvent<HTMLTextAreaElement>)=> {
         if(e.key === 'Enter') {
             addMessage()
         }
     }
-
     const onNewMessageChangeHandler =(e: ChangeEvent<HTMLTextAreaElement>)=> {
-       props.updateNewMessageText(e.currentTarget.value)
+       props.dispatch(UpdateNewMessageTextAC(e.currentTarget.value))
     }
+
 
     return (
         <div className={s.dialogs}>

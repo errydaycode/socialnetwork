@@ -1,12 +1,11 @@
 import React from 'react';
-import MyPosts, {postsDataType} from "./MyPosts/MyPosts";
+import MyPosts from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {profilePageType} from "../../redux/state";
+import {ActionTypes, profilePageType} from "../../redux/state";
 
 type ProfileProps={
     profilePage: profilePageType
-    addPostCallBack : ()=> void
-    updateNewPostText: (postMsg: string)=> void
+    dispatch: (action: ActionTypes) => void
 
 }
 
@@ -17,9 +16,8 @@ export const Profile = (props: ProfileProps) => {
         <div>
             <ProfileInfo/>
             <MyPosts posts={props.profilePage.posts}
-                     addPostCallBack={props.addPostCallBack}
                      newPostText={props.profilePage.newPostText}
-                     updateNewPostText={props.updateNewPostText}
+                     dispatch={props.dispatch}
             />
         </div>
     );

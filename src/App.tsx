@@ -8,15 +8,12 @@ import { Redirect, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {statePropsType} from "./redux/state";
+import {ActionTypes, statePropsType} from "./redux/state";
 
 
 type AppPropsType ={
     state: statePropsType
-    addPostCallBack : ()=> void
-    updateNewPostText : (postMsg: string)=> void
-    updateNewMessageText: (msg: string) => void
-    addNewMessage: ()=> void
+    dispatch: (action : ActionTypes) => void
 }
 
 
@@ -29,16 +26,12 @@ function App(props: AppPropsType) {
                 <div className={'app-wrapper-content'}>
                     <Route exact path="/" render={() => <Redirect to="/profile" />} />
                     <Route  path={'/dialogs'} render={()=> <Dialogs state={props.state.messagesPage}
-                                                                    addNewMessage={props.addNewMessage}
-                                                                    updateNewMessageText={props.updateNewMessageText}
+                                                                    dispatch={props.dispatch}
                                                                     newMessageText={props.state.messagesPage.newMessageText}
-
                     />}
                     />
                     <Route  path={'/profile'} render={()=> <Profile profilePage={props.state.profilePage}
-                                                                    addPostCallBack={props.addPostCallBack}
-                                                                    updateNewPostText={props.updateNewPostText}
-
+                                                                    dispatch={props.dispatch}
                     />}/>
                     <Route path={'/news'} render={ ()=> <News/>}/>
                     <Route  path={'/music'} render={ ()=>  <Music/>}/>
