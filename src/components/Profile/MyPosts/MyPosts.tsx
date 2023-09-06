@@ -21,15 +21,15 @@ const
 
     let mappedPosts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
 
-
     let addPostHandler = () => {
         props.dispatch(AddPostAC())
     }
 
-
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(UpdateNewPostTextAC(e.currentTarget.value))
+        let text = e.currentTarget.value
+        props.dispatch(UpdateNewPostTextAC(text))
     }
+
     let onKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
      if    (e.key === 'Enter') {
          addPostHandler()
