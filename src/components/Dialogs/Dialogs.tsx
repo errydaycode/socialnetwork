@@ -53,7 +53,12 @@ export const Dialogs = (props:stateProps ) => {
             </div>
 
             <div>
-                <textarea onKeyDown={onKeyDownHandler} value={props.newMessageText}  onChange={onNewMessageChangeHandler}></textarea>
+                <textarea
+                        onKeyDown={onKeyDownHandler}
+                          value={props.newMessageText}
+                          onChange={onNewMessageChangeHandler}>
+
+                </textarea>
                 <button  onClick={addMessage}>send message</button>
             </div>
 
