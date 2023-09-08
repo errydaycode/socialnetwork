@@ -120,7 +120,7 @@ export const store: StoreType = {
         return this._state
     },
     // меняет стейт
-    dispatch(action) {
+    dispatch(action) { // стейт всегда меняется только через диспатч экшоноф))
         if (action.type === 'ADD-POST') {
             let newPost: postsDataType =
                 {

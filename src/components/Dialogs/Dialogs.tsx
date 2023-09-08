@@ -39,7 +39,8 @@ export const Dialogs = (props:stateProps ) => {
         }
     }
     const onNewMessageChangeHandler =(e: ChangeEvent<HTMLTextAreaElement>)=> {
-       props.dispatch(UpdateNewMessageTextAC(e.currentTarget.value))
+        let newMessageBody = e.currentTarget.value
+       props.dispatch(UpdateNewMessageTextAC(newMessageBody))
     }
 
 
@@ -51,17 +52,15 @@ export const Dialogs = (props:stateProps ) => {
             <div className={s.messages}>
                 {mappedMessages}
             </div>
-
             <div>
                 <textarea
+                    placeholder={'Type...'}
                         onKeyDown={onKeyDownHandler}
                           value={props.newMessageText}
                           onChange={onNewMessageChangeHandler}>
-
                 </textarea>
                 <button  onClick={addMessage}>send message</button>
             </div>
-
 
         </div>
     );
