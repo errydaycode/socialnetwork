@@ -2,7 +2,9 @@ import React, {ChangeEvent, KeyboardEvent}  from 'react';
 import  s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {ActionTypes, AddMessageAC, UpdateNewMessageTextAC} from "../../redux/state";
+
+import { AddMessageAC, UpdateNewMessageTextAC} from "../../redux/dialogs-reducer";
+import {ActionTypes} from "../../redux/state";
 
 
 export type dialogsDataType ={

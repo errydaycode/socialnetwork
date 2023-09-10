@@ -1,6 +1,9 @@
 import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
 import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
 import React from "react";
+import ProfileReducer, {AddPostAC, UpdateNewPostTextAC} from "./profile-reducer";
+import SidebarReducer from "./sidebar-reducer";
+import DialogsReducer, {AddMessageAC, UpdateNewMessageTextAC} from "./dialogs-reducer";
 
 export type messagesPageType = {
     dialogs: dialogsDataType[]
@@ -35,38 +38,9 @@ export type StoreType = {
 }
 
 
-
 export type ActionTypes = ReturnType<typeof AddPostAC> |
     ReturnType<typeof UpdateNewPostTextAC>|
     ReturnType<typeof AddMessageAC> | ReturnType<typeof UpdateNewMessageTextAC>
-
-
-export const AddPostAC = ()  => {
-    return {
-        type: 'ADD-POST'
-    } as const
-}
-
-export const AddMessageAC = ()  => {
-    return {
-        type: 'ADD-MESSAGE'
-    } as const
-}
-
-
-export const UpdateNewPostTextAC = (postMsg: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        postMsg
-    } as const
-}
-
-export const UpdateNewMessageTextAC = (messageText: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
-        messageText
-    } as const
-}
 
 
 export const store: StoreType = {
@@ -121,34 +95,12 @@ export const store: StoreType = {
     },
     // меняет стейт
     dispatch(action) { // стейт всегда меняется только через диспатч экшоноф))
-        if (action.type === 'ADD-POST') {
-            let newPost: postsDataType =
-                {
-                    id: this._state.profilePage.posts.length + 1,
-                    message: this._state.profilePage.newPostText,
-                    likesCount: 0
-                };
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber();
-        }
-        else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.postMsg
-            this._callSubscriber();
-        }
-        else if (action.type === 'ADD-MESSAGE') {
-            const newMessage: messagesDataType = {
-                id: this._state.messagesPage.messages.length + 1,
-                message: this._state.messagesPage.newMessageText
-            }
-            this._state.messagesPage.messages.push(newMessage)
-            this._state.messagesPage.newMessageText = ''
-            this._callSubscriber()
-        }
-        else if (action.type === "UPDATE-NEW-MESSAGE-TEXT" ) {
-            this._state.messagesPage.newMessageText = action.messageText
-            this._callSubscriber()
-        }
+        this._state.profilePage = ProfileReducer(this._state.profilePage, action)
+        this._state.messagesPage = DialogsReducer(this._state.messagesPage, action)
+        this._state.navbar = SidebarReducer(this._state.navbar, action)
+        this._callSubscriber()
+
     }
 }
+
 
