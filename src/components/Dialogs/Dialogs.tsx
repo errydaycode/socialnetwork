@@ -4,7 +4,7 @@ import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 
 import { AddMessageAC, UpdateNewMessageTextAC} from "../../redux/dialogs-reducer";
-import {ActionTypes} from "../../redux/state";
+import {ActionTypes} from "../../redux/store";
 
 
 export type dialogsDataType ={

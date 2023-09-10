@@ -1,8 +1,18 @@
-import {ActionTypes, profilePageType} from "./state";
+import {ActionTypes, profilePageType} from "./store";
 import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
 
 
-const ProfileReducer = (state: profilePageType, action: ActionTypes) => {
+let initialState = {
+    posts: [
+        {id: 1, message: 'Ты... это...заходи, если что!..', likesCount: 172},
+        {id: 2, message: 'Щас спою!', likesCount: 172},
+    ],
+    newPostText: ''
+}
+
+
+const ProfileReducer = (state: profilePageType = initialState, action: ActionTypes) => {
+    debugger
     switch (action.type) {
         case 'ADD-POST':
             let newPost: postsDataType =
@@ -11,7 +21,7 @@ const ProfileReducer = (state: profilePageType, action: ActionTypes) => {
                     message: state.newPostText,
                     likesCount: 0
                 };
-            state.posts.push(newPost)
+            state.posts.unshift(newPost)
             state.newPostText = ''
             return state;
         case 'UPDATE-NEW-POST-TEXT':
@@ -24,12 +34,14 @@ const ProfileReducer = (state: profilePageType, action: ActionTypes) => {
 }
 
 export const AddPostAC = ()  => {
+    debugger
     return {
         type: 'ADD-POST'
     } as const
 }
 
 export const UpdateNewPostTextAC = (postMsg: string) => {
+    debugger
     return {
         type: 'UPDATE-NEW-POST-TEXT',
         postMsg

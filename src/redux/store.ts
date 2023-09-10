@@ -28,7 +28,7 @@ export type statePropsType = {
     navbar: NavbarType
 
 }
-let avatars = "https://static.mk.ru/upload/entities/2019/02/05/16/articles/facebookPicture/1e/3d/4d/c0/8c2d70267a07ec38f9e61811170bb911.jpg"
+export let avatars = "https://static.mk.ru/upload/entities/2019/02/05/16/articles/facebookPicture/1e/3d/4d/c0/8c2d70267a07ec38f9e61811170bb911.jpg"
 export type StoreType = {
     _state: statePropsType,
     _callSubscriber: ()=> void
