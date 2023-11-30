@@ -33,7 +33,7 @@ const DialogsReducer = (state: messagesPageType = initialState, action: ActionTy
             state.messages.push(newMessage)
             state.newMessageText = ''
             return state
-        case "UPDATE-NEW-MESSAGE-TEXT":
+        case "UPD-NEW-MESSAGE-TEXT":
             state.newMessageText = action.messageText
             return state;
         default:
@@ -47,7 +47,7 @@ export const AddMessageAC = ()  => {
 }
 export const UpdateNewMessageTextAC = (messageText: string) => {
     return {
-        type: 'UPDATE-NEW-MESSAGE-TEXT',
+        type: 'UPD-NEW-MESSAGE-TEXT',
         messageText
     } as const
 }
