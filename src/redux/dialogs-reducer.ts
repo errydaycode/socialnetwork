@@ -25,7 +25,7 @@ import {messagesDataType} from "../components/Dialogs/Dialogs";
 
 const DialogsReducer = (state: messagesPageType = initialState, action: ActionTypes) => {
     switch (action.type) {
-        case 'ADD-MESSAGE':
+        case 'SEND-MESSAGE':
             const newMessage: messagesDataType = {
                 id: state.messages.length + 1,
                 message: state.newMessageText
@@ -42,7 +42,7 @@ const DialogsReducer = (state: messagesPageType = initialState, action: ActionTy
 }
 export const AddMessageAC = ()  => {
     return {
-        type: 'ADD-MESSAGE'
+        type: 'SEND-MESSAGE'
     } as const
 }
 export const UpdateNewMessageTextAC = (messageText: string) => {
