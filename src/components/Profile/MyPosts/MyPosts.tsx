@@ -15,44 +15,44 @@ export type postsDataType = {
 type MyPostsPropsType = {
     posts: postsDataType[]
     newPostText: string
-    dispatch: (action: ActionTypes) => void
+    addPost: ()=> void
+    updateNewPostText: (text: string)=> void
 }
 
 const
     MyPosts = (props: MyPostsPropsType) => {
 
-    let mappedPosts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
+        let mappedPosts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
 
-    let addPostHandler = () => {
-        props.dispatch(AddPostAC())
-    }
+        let addPostHandler = () => {
+            props.addPost()
 
-    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value
-        props.dispatch(UpdateNewPostTextAC(text))
-    }
+            let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+                let text = e.currentTarget.value
+                props.updateNewPostText(text)
+            }
 
-    let onKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-     if    (e.key === 'Enter') {
-         addPostHandler()
-     }
-    }
-    return (
-        <div className={s.postsBlock}>
-            <h3>My posts</h3>
-            <div>
-                <div>
-                    <textarea  value={props.newPostText} onChange={onPostChange} onKeyPress={onKeyPressHandler}/>
+            let onKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+                if (e.key === 'Enter') {
+                    addPostHandler()
+                }
+            }
+            return (
+                <div className={s.postsBlock}>
+                    <h3>My posts</h3>
+                    <div>
+                        <div>
+                            <textarea value={props.newPostText} onChange={onPostChange} onKeyPress={onKeyPressHandler}/>
+                        </div>
+                        <div>
+                            <button onClick={addPostHandler}>Add post</button>
+                        </div>
+                    </div>
+                    <div className={s.posts}>
+                        {mappedPosts}
+                    </div>
                 </div>
-                <div>
-                    <button onClick={addPostHandler}>Add post</button>
-                </div>
-            </div>
-            <div className={s.posts}>
-                {mappedPosts}
-            </div>
-        </div>
-    );
-};
-
+            );
+        };
+    }
 export default MyPosts;
