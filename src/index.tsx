@@ -5,12 +5,17 @@ import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import {store} from "./redux/redux-store";
 
+
+
+
 const rerenderEntireTree =( )=> {
-    debugger
+
     ReactDOM.render(
         <BrowserRouter>
-            <App state={store.getState()}
-                 dispatch={store.dispatch.bind(store)}/>
+            <App store={store}
+                 dispatch={store.dispatch.bind(store)}
+                 state={store.getState()}
+            />
         </BrowserRouter>,
         document.getElementById('root')
     );

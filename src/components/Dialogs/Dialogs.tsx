@@ -23,8 +23,9 @@ type DialogsPropsType={
 
 type stateProps={
     state:DialogsPropsType
-    dispatch: (action: ActionTypes) => void
     newMessageText: string
+    updateNewMessageBody: (newBody: string) => void
+    addMessage: ()=> void
 }
 
 export const Dialogs = (props:stateProps ) => {
@@ -33,7 +34,7 @@ export const Dialogs = (props:stateProps ) => {
     let mappedMessages = props.state.messages.map(m => <Message message={m.message}/> )
 
     const addMessage = ()=> {
-        props.dispatch(AddMessageAC())
+        props.addMessage()
     }
     const onKeyDownHandler =(e: KeyboardEvent<HTMLTextAreaElement>)=> {
         if(e.key === 'Enter') {
@@ -42,7 +43,8 @@ export const Dialogs = (props:stateProps ) => {
     }
     const onNewMessageChangeHandler =(e: ChangeEvent<HTMLTextAreaElement>)=> {
         let newMessageBody = e.currentTarget.value
-       props.dispatch(UpdateNewMessageTextAC(newMessageBody))
+        props.updateNewMessageBody(newMessageBody)
+
     }
 
 

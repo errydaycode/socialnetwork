@@ -1,43 +1,39 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
-import s from './Myposts.module.css'
-import {Post} from "./Post/Post";
+import React, {KeyboardEvent} from 'react';
 import {AddPostAC, UpdateNewPostTextAC} from "../../../redux/profile-reducer";
-import {ActionTypes} from "../../../redux/store";
+import { StoreType} from "../../../redux/store";
 import MyPosts from "./MyPosts";
 
 
 
-export type postsDataType = {
-    id: number,
-    message: string,
-    likesCount: number
-}
 
 type MyPostsPropsType = {
-    posts: postsDataType[]
-    newPostText: string
-    dispatch: (action: ActionTypes) => void
+    store: StoreType
+
 }
 
 const MyPostsContainer = (props: MyPostsPropsType) => {
 
-    let mappedPosts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
+
+    let state = props.store.getState()
 
     let addPostHandler = () => {
-        props.dispatch(AddPostAC())
+        props.store.dispatch(AddPostAC())
     }
 
     let onPostChange = (text: string) => {
-        props.dispatch(UpdateNewPostTextAC(text))
+        props.store.dispatch(UpdateNewPostTextAC(text))
     }
 
     let onKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-     if    (e.key === 'Enter') {
-         addPostHandler()
-     }
+        if (e.key === 'Enter') {
+            addPostHandler()
+        }
     }
     return (
-      <MyPosts updateNewPostText={onPostChange}/>
+        <MyPosts updateNewPostText={onPostChange}
+                 addPost={addPostHandler}
+                 newPostText={state.profilePage.newPostText}
+                 posts={state.profilePage.posts}/>
     );
 };
 

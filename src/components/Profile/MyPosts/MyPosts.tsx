@@ -14,7 +14,7 @@ export type postsDataType = {
 
 type MyPostsPropsType = {
     posts: postsDataType[]
-    newPostText: string
+    newPostText?: string
     addPost: ()=> void
     updateNewPostText: (text: string)=> void
 }
@@ -24,9 +24,9 @@ const
 
         let mappedPosts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
 
-        let addPostHandler = () => {
+        let onAddPost = () => {
             props.addPost()
-
+        }
             let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
                 let text = e.currentTarget.value
                 props.updateNewPostText(text)
@@ -34,7 +34,7 @@ const
 
             let onKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
                 if (e.key === 'Enter') {
-                    addPostHandler()
+                    onAddPost()
                 }
             }
             return (
@@ -45,7 +45,7 @@ const
                             <textarea value={props.newPostText} onChange={onPostChange} onKeyPress={onKeyPressHandler}/>
                         </div>
                         <div>
-                            <button onClick={addPostHandler}>Add post</button>
+                            <button onClick={onAddPost}>Add post</button>
                         </div>
                     </div>
                     <div className={s.posts}>
@@ -54,5 +54,5 @@ const
                 </div>
             );
         };
-    }
+
 export default MyPosts;
