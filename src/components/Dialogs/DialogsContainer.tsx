@@ -6,48 +6,48 @@ import {Message} from "./Message/Message";
 import {AddMessageAC, UpdateNewMessageTextAC} from "../../redux/dialogs-reducer";
 import {ActionTypes, StoreType} from "../../redux/store";
 import {Dialogs} from "./Dialogs";
+import StoreContext from "../../StoreContext";
+
+//
+// export type dialogsDataType = {
+//     id: number
+//     name: string
+// }
+// export type messagesDataType = {
+//     id: number
+//     message: string
+// }
+//
+// type DialogsPropsType = {
+//     dialogs: dialogsDataType[]
+//     messages: messagesDataType[]
+// }
+//
+// type stateProps = {
+//     store: StoreType
+// }
+
+export const DialogsContainer = () => {
 
 
-export type dialogsDataType = {
-    id: number
-    name: string
-}
-export type messagesDataType = {
-    id: number
-    message: string
-}
 
-type DialogsPropsType = {
-    dialogs: dialogsDataType[]
-    messages: messagesDataType[]
-}
+    return ( <StoreContext.Consumer>
+            {(store) =>  {
+                let state = store.getState().messagesPage
+                const addMessage = () => {
+                    store.dispatch(AddMessageAC())
+                }
+                const onNewMessageChangeHandler = (newMessageBody: string) => {
+                    store.dispatch(UpdateNewMessageTextAC(newMessageBody))
+                }
+                return <Dialogs updateNewMessageBody={onNewMessageChangeHandler}
+                  state={state}
+                  newMessageText={state.newMessageText}
+                  addMessage={addMessage}/>
+                     }
 
-type stateProps = {
-    store: StoreType
-}
-
-export const DialogsContainer = (props: stateProps) => {
-
-    let state = props.store.getState().messagesPage
-
-
-    const addMessage = () => {
-        props.store.dispatch(AddMessageAC())
-    }
-    const onKeyDownHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (e.key === 'Enter') {
-            addMessage()
-        }
-    }
-    const onNewMessageChangeHandler = (newMessageBody: string) => {
-        props.store.dispatch(UpdateNewMessageTextAC(newMessageBody))
-    }
-
-
-    return <Dialogs updateNewMessageBody={onNewMessageChangeHandler}
-                    state={state}
-                    newMessageText={state.newMessageText}
-                    addMessage={addMessage}
-    />
+                    }
+    </StoreContext.Consumer>
+    )
 };
 

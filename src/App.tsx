@@ -10,27 +10,25 @@ import {Settings} from "./components/Settings/Settings";
 import {ActionTypes, statePropsType, StoreType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
+//
+// type AppPropsType ={
+//     state: statePropsType
+//     dispatch: (action : ActionTypes) => void
+//     store : StoreType
+// }
 
-type AppPropsType ={
-    state: statePropsType
-    dispatch: (action : ActionTypes) => void
-    store : StoreType
-}
-
-function App(props: AppPropsType) {
+function App() {
 
     return (
 
             <div className='app-wrapper'>
                 <Header/>
-                <Navbar state={props.state.navbar}/>
+                <Navbar />
                 <div className={'app-wrapper-content'}>
                     <Route exact path="/" render={() => <Redirect to="/profile" />} />
-                    <Route  path={'/dialogs'} render={()=> <DialogsContainer store={props.store}
-                    />}
+                    <Route  path={'/dialogs'} render={()=> <DialogsContainer />}
                     />
-                    <Route  path={'/profile'} render={()=> <Profile store={props.store}
-                    />}/>
+                    <Route  path={'/profile'} render={()=> <Profile/>}/>
                     <Route path={'/news'} render={ ()=> <News/>}/>
                     <Route  path={'/music'} render={ ()=>  <Music/>}/>
                     <Route  path={'/settings'} render={()=>  <Settings/>}/>

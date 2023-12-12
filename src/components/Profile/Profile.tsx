@@ -5,17 +5,17 @@ import {ActionTypes, profilePageType, StoreType} from "../../redux/store";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
-type ProfileProps = {
-    store: StoreType
+// type ProfileProps = {
+//     store: StoreType
+//
+// }
 
-}
-
-export const Profile = (props: ProfileProps) => {
+export const Profile = () => {
 
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer store={props.store}/>
+            <MyPostsContainer/>
         </div>
     );
 };
