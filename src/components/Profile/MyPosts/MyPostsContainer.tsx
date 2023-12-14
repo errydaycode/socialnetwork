@@ -1,8 +1,11 @@
 import React, {KeyboardEvent} from 'react';
 import {AddPostAC, UpdateNewPostTextAC} from "../../../redux/profile-reducer";
-import {StoreType} from "../../../redux/store";
-import MyPosts from "./MyPosts";
-import StoreContext from "../../../StoreContext";
+import {ActionTypes, profilePageType, StoreType} from "../../../redux/store";
+import MyPosts, {postsDataType} from "./MyPosts";
+
+import {connect} from "react-redux";
+import {AppRootStateType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
 
 
 // type MyPostsPropsType = {
@@ -10,35 +13,68 @@ import StoreContext from "../../../StoreContext";
 //
 // }
 
-const MyPostsContainer = () => {
+// const MyPostsContainer = () => {
+//
+//
+//     return (
+//         <StoreContext.Consumer>
+//             {(store) => {
+//                 let state = store.getState()
+//                 let addPostHandler = () => {
+//                     store.dispatch(AddPostAC())
+//                 }
+//
+//                 let onPostChange = (text: string) => {
+//                     store.dispatch(UpdateNewPostTextAC(text))
+//                 }
+//
+//                 let onKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+//                     if (e.key === 'Enter') {
+//                         addPostHandler()
+//                     }
+//                 }
+//                 return <MyPosts
+//                     updateNewPostText={onPostChange}
+//                     addPost={addPostHandler}
+//                     newPostText={state.profilePage.newPostText}
+//                     posts={state.profilePage.posts}/>
+//             }
+//
+//             }
+//         </StoreContext.Consumer>
+//     );
+// };
 
 
-    return (
-        <StoreContext.Consumer >
-            {(store)=>  {
-            let state = store.getState()
-                let addPostHandler = () => {
-                    store.dispatch(AddPostAC())
-                }
+type mapStateToPropsType = {
+    newPostText: string
+    posts: postsDataType[]
+}
+type mapDispatchToPropsType = {
+    addPostHandler: ()=> void
+    onPostChange: (text: string) => void
+}
 
-                let onPostChange = (text: string) => {
-                   store.dispatch(UpdateNewPostTextAC(text))
-                }
 
-                let onKeyPressHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-                    if (e.key === 'Enter') {
-                        addPostHandler()
-                    }
-                }
-                return  <MyPosts updateNewPostText={onPostChange}
-                         addPost={addPostHandler}
-                         newPostText={state.profilePage.newPostText}
-                         posts={state.profilePage.posts}/>
-            }
+export type PostsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-            }
-        </StoreContext.Consumer>
-    );
-};
+const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
+    return {
+        newPostText: state.profilePage.newPostText,
+        posts: state.profilePage.posts
+    }
+}
+const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>):mapDispatchToPropsType  => {
+    return {
+        addPostHandler: () => {
+            dispatch(AddPostAC())
+        },
+        onPostChange:(text: string) => {
+            dispatch(UpdateNewPostTextAC(text))
+        }
+    }
+}
+
+const MyPostsContainer = connect(mapStateToProps,mapDispatchToProps )(MyPosts)
 
 export default MyPostsContainer;

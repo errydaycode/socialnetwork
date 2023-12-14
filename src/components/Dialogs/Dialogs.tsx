@@ -5,33 +5,34 @@ import {Message} from "./Message/Message";
 
 import { AddMessageAC, UpdateNewMessageTextAC} from "../../redux/dialogs-reducer";
 import {ActionTypes} from "../../redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
 
 
-export type dialogsDataType ={
-    id: number
-    name: string
-}
-export type messagesDataType ={
-    id: number
-    message: string
-}
+// export type dialogsDataType ={
+//     id: number
+//     name: string
+// }
+// export type messagesDataType ={
+//     id: number
+//     message: string
+// }
+//
+// type DialogsPropsType={
+//     dialogs:dialogsDataType[]
+//     messages:messagesDataType[]
+// }
 
-type DialogsPropsType={
-    dialogs:dialogsDataType[]
-    messages:messagesDataType[]
-}
+// type stateProps={
+//     state:DialogsPropsType
+//     newMessageText: string
+//     updateNewMessageBody: (newBody: string) => void
+//     addMessage: ()=> void
+// }
 
-type stateProps={
-    state:DialogsPropsType
-    newMessageText: string
-    updateNewMessageBody: (newBody: string) => void
-    addMessage: ()=> void
-}
+export const Dialogs = (props:DialogsPropsType ) => {
 
-export const Dialogs = (props:stateProps ) => {
-
-    let mappedDialogs = props.state.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/> )
-    let mappedMessages = props.state.messages.map(m => <Message message={m.message}/> )
+    let mappedDialogs = props.dialogsPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/> )
+    let mappedMessages = props.dialogsPage.messages.map(m => <Message message={m.message}/> )
 
     const addMessage = ()=> {
         props.addMessage()

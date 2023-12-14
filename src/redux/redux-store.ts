@@ -15,7 +15,7 @@ let rootReducer = combineReducers( {
 
 
 
-export const store: StoreType = createStore(rootReducer)
+export const store = createStore(rootReducer)
 export type AppRootStateType = ReturnType<typeof rootReducer>
 // автоматически, createStore создает внутри себя стейт, с теми св-вами, что мы указали в рутовом редьюсере
 

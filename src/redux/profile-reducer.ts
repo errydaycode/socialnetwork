@@ -6,12 +6,12 @@ let initialState = {
     posts: [
         {id: 1, message: 'Ты... это...заходи, если что!..', likesCount: 172},
         {id: 2, message: 'Щас спою!', likesCount: 172},
-    ],
+    ] as Array<postsDataType>,
     newPostText: ''
 }
 
-
-const ProfileReducer = (state: profilePageType = initialState, action: ActionTypes) => {
+export type InitialProfileReducerStateType =  typeof initialState
+const ProfileReducer = (state: InitialProfileReducerStateType = initialState, action: ActionTypes): InitialProfileReducerStateType => {
     debugger
     switch (action.type) {
         case 'ADD-POST':

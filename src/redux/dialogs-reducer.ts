@@ -1,5 +1,5 @@
 import {ActionTypes, messagesPageType} from "./store";
-import {messagesDataType} from "../components/Dialogs/Dialogs";
+import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
 
 
  let initialState = {
@@ -10,8 +10,7 @@ import {messagesDataType} from "../components/Dialogs/Dialogs";
          {id: 4, name: 'Liza'},
          {id: 5, name: 'Marina'},
          {id: 6, name: 'Roman'}
-     ],
-
+     ] as dialogsDataType[],
      messages: [
          {id: 1, message: 'Hi'},
          {id: 2, message: 'How is your React?'},
@@ -19,11 +18,12 @@ import {messagesDataType} from "../components/Dialogs/Dialogs";
          {id: 4, message: 'Yo!'},
          {id: 5, message: 'Russia!'},
          {id: 6, message: 'USA!'}
-     ],
+     ] as messagesDataType[],
      newMessageText: ''
  };
 
-const DialogsReducer = (state: messagesPageType = initialState, action: ActionTypes) => {
+export type InitialDialogsReducerStateType =  typeof initialState
+const DialogsReducer = (state: InitialDialogsReducerStateType = initialState, action: ActionTypes): InitialDialogsReducerStateType => {
     switch (action.type) {
         case 'SEND-MESSAGE':
             const newMessage: messagesDataType = {

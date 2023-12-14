@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
-import {FriendsNavType, NavbarType} from "../../redux/store";
-import StoreContext from "../../StoreContext";
+import {connect} from "react-redux";
+import {AppRootStateType} from "../../redux/redux-store";
 
 
 //
@@ -11,15 +11,10 @@ import StoreContext from "../../StoreContext";
 // }
 
 
-export const Navbar = () => {
+export const Navbar = (props: NavBarPropsType) => {
 
 
-    return (
-        <StoreContext.Consumer>
-            {(store)=> {
-
-
-                let mappedFriends = store.getState().navbar.friends.map(el => {
+                let mappedFriends = mapStateToProps.friends.map(el => { // ??
                     return (
                         <div  className={s.friendsNames}>
                             <img src={el.img} alt="avas"/>
@@ -28,7 +23,7 @@ export const Navbar = () => {
                     )
                 })
 
-              return  <nav className={s.nav}>
+              return (  <nav className={s.nav}>
                     <div className={s.item}>
                         <NavLink to={'/profile'} activeClassName={s.active}>Profile</NavLink>
                     </div>
@@ -44,17 +39,18 @@ export const Navbar = () => {
                     <div className={s.item}>
                         <NavLink to={'/settings'} activeClassName={s.active}>Settings</NavLink>
                     </div>
-
                     <div className={s.friends}>
                         Friends
                         {mappedFriends}
                     </div>
-
                 </nav>
-
-            }
-            }
-        </StoreContext.Consumer>
     );
 };
 
+const mapStateToProps = (state: AppRootStateType) => {
+    return {
+        friends: state.navbar
+    }
+}
+
+export const ConnectedNavbar = connect (mapStateToProps)(Navbar)

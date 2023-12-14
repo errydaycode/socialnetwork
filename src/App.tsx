@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Header} from "./components/Header/Header";
-import {Navbar} from "./components/Navbar/Navbar";
+import {ConnectedNavbar, Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import { Redirect, Route} from "react-router-dom";
 import {News} from "./components/News/News";
@@ -23,7 +23,7 @@ function App() {
 
             <div className='app-wrapper'>
                 <Header/>
-                <Navbar />
+                <ConnectedNavbar />
                 <div className={'app-wrapper-content'}>
                     <Route exact path="/" render={() => <Redirect to="/profile" />} />
                     <Route  path={'/dialogs'} render={()=> <DialogsContainer />}
