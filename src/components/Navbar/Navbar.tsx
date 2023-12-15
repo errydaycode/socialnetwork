@@ -1,8 +1,7 @@
 import React from 'react';
 import s from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
-import {connect} from "react-redux";
-import {AppRootStateType} from "../../redux/redux-store";
+import { NavbarPropsType} from "./NavbarContainer";
 
 
 //
@@ -11,10 +10,10 @@ import {AppRootStateType} from "../../redux/redux-store";
 // }
 
 
-export const Navbar = (props: NavBarPropsType) => {
+export const Navbar = (props: NavbarPropsType) => {
 
 
-                let mappedFriends = mapStateToProps.friends.map(el => { // ??
+                let mappedFriends = props.friends.map(el => { // ??
                     return (
                         <div  className={s.friendsNames}>
                             <img src={el.img} alt="avas"/>
@@ -47,10 +46,4 @@ export const Navbar = (props: NavBarPropsType) => {
     );
 };
 
-const mapStateToProps = (state: AppRootStateType) => {
-    return {
-        friends: state.navbar
-    }
-}
 
-export const ConnectedNavbar = connect (mapStateToProps)(Navbar)

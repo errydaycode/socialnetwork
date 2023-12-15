@@ -1,4 +1,4 @@
-import {ActionTypes, profilePageType} from "./store";
+import {ActionTypes} from "./store";
 import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
 
 
@@ -21,12 +21,16 @@ const ProfileReducer = (state: InitialProfileReducerStateType = initialState, ac
                     message: state.newPostText,
                     likesCount: 0
                 };
-            state.posts.unshift(newPost)
-            state.newPostText = ''
-            return state;
+            return {
+                ...state,
+                posts: [newPost, ...state.posts],
+                newPostText: ''
+            }
         case 'UPDATE-NEW-POST-TEXT':
-            state.newPostText = action.postMsg
-            return state;
+            return {
+                ...state,
+                newPostText: action.postMsg
+            }
         default:
             return state
     }

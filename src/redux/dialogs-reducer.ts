@@ -1,4 +1,4 @@
-import {ActionTypes, messagesPageType} from "./store";
+import {ActionTypes} from "./store";
 import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
 
 
@@ -30,12 +30,16 @@ const DialogsReducer = (state: InitialDialogsReducerStateType = initialState, ac
                 id: state.messages.length + 1,
                 message: state.newMessageText
             }
-            state.messages.push(newMessage)
-            state.newMessageText = ''
-            return state
+            return {
+                ...state,
+                    messages: [newMessage, ...state.messages],
+                    newMessageText: ''
+            }
         case "UPD-NEW-MESSAGE-TEXT":
-            state.newMessageText = action.messageText
-            return state;
+            return {
+                ...state,
+                    newMessageText: action.messageText
+            }
         default:
             return state
     }
