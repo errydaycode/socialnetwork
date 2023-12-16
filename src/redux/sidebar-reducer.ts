@@ -11,8 +11,11 @@ let initialState =  {
 export type InitialSidebarReducerStateType =  typeof initialState
  const SidebarReducer = (state: InitialSidebarReducerStateType = initialState, action: ActionTypes): InitialSidebarReducerStateType => {
 
-  return state
-}
+  return {
+   ...state
+  }
+  }
+
 
 
 export default SidebarReducer;
