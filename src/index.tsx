@@ -4,27 +4,22 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import {store} from "./redux/redux-store";
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 
 
-
-
-
-const rerenderEntireTree =( )=> {
-
-    ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={store}>
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
             <App/>
-            </Provider>
-        </BrowserRouter>,
-        document.getElementById('root')
-    );
-}
+        </Provider>
+    </BrowserRouter>,
+    document.getElementById('root')
+);
 
 
-rerenderEntireTree() // Первая отрисовка
-store.subscribe(rerenderEntireTree) // это по сути для того, чтобы при изменении стейта в функциях мы могли делать перерисовку, но тк мы не можем импортировать в стейт что-то из индекса, передаем туда нашу функцию параметром в другой функции ( колл-бэком)
+// Первая отрисовка
+
+// store.subscribe(rerenderEntireTree) // это по сути для того, чтобы при изменении стейта в функциях мы могли делать перерисовку, но тк мы не можем импортировать в стейт что-то из индекса, передаем туда нашу функцию параметром в другой функции ( колл-бэком)
 
 
 // внедрять будем объект store
