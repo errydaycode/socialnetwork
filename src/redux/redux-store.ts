@@ -4,13 +4,15 @@ import ProfileReducer from "./profile-reducer";
 import DialogsReducer from "./dialogs-reducer";
 import SidebarReducer from "./sidebar-reducer";
 import {StoreType} from "./store";
+import usersReducer from "./users-reducer";
 
 
 
 let rootReducer = combineReducers( {
     profilePage: ProfileReducer,
     messagesPage: DialogsReducer,
-    navbar: SidebarReducer
+    navbar: SidebarReducer,
+    usersPage: usersReducer
 }) // объект воспринимайте не как связка редьюсеров, а как стейт. Сколько веток в стейте - столько и редьюсеров тут.
 
 

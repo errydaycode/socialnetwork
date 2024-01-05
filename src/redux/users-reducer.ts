@@ -1,8 +1,9 @@
 import {ActionTypes} from "./store";
 import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
 
-type UsersType = {
+export type UserType = {
     id: string
+    photoUrl: string
     isFollowed: boolean
     fullName: string
     status: string
@@ -10,11 +11,7 @@ type UsersType = {
 }
 
 let initialState = {
-    users: [
-        // {id: '1', isFollowed: true, fullName: 'Georgy', status: 'I am front-end dev', location: {city: 'Moscow', country: 'Russia'} },
-        // {id: '2',  isFollowed: false, fullName: 'Ivan', status: 'I am back-end dev', location: {city: 'Minsk', country: 'Belarus'} },
-        // {id: '3', isFollowed: false, fullName: 'Dimych', status: 'I am a boss', location: {city: 'Batumi', country: 'Georgia'} },
-    ] as UsersType[]
+    users: [] as UserType[]
 }
 
 export type InitialUserReducerStateType =  typeof initialState
@@ -53,7 +50,7 @@ export const unFollowAC = (userId: string) => {
     } as const
 }
 
-export const setUsersAC = (users: UsersType[]) => {
+export const setUsersAC = (users: UserType[]) => {
     return {
         type: 'SET-USERS',
         users
