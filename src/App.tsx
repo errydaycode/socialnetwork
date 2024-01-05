@@ -8,6 +8,7 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import ConnectedNavbar from "./components/Navbar/NavbarContainer";
+import {Users} from "./components/Users/Users";
 
 //
 // type AppPropsType ={
@@ -31,6 +32,7 @@ function App() {
                     <Route path={'/news'} render={ ()=> <News/>}/>
                     <Route  path={'/music'} render={ ()=>  <Music/>}/>
                     <Route  path={'/settings'} render={()=>  <Settings/>}/>
+                    <Route  path={'/users'} render={()=>  <Users/>}/>
                 </div>
             </div>
 
