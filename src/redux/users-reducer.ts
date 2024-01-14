@@ -1,13 +1,19 @@
 import {ActionTypes} from "./store";
 import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
 
+
+
 export type UserType = {
-    id: string
-    photoUrl: string
-    isFollowed: boolean
-    fullName: string
-    status: string
-    location: {city: string, country: string}
+    name: string
+    id: number
+    uniqueUrlName: string | null
+    photos: {
+       small: string,
+        large: string
+      },
+    followed: boolean
+    status: string | null
+
 }
 
 let initialState = {
@@ -20,11 +26,11 @@ const usersReducer = (state: InitialUserReducerStateType = initialState, action:
     switch (action.type) {
         case "FOLLOW":
             return {
-                ...state, users: state.users.map(el=> el.id === action.userId ? {...el, isFollowed: true} : el)
+                ...state, users: state.users.map(el=> el.id === action.userId ? {...el, followed: true} : el)
             }
         case "UNFOLLOW":
             return {
-                ...state, users: state.users.map(el=> el.id === action.userId ? {...el, isFollowed: false} : el)
+                ...state, users: state.users.map(el=> el.id === action.userId ? {...el, followed: false} : el)
             }
         case "SET-USERS":
             return {
@@ -36,14 +42,14 @@ const usersReducer = (state: InitialUserReducerStateType = initialState, action:
 
 }
 
-export const followAC = (userId: string)  => {
+export const followAC = (userId: number)  => {
     return {
         type: 'FOLLOW',
         userId
     } as const
 }
 
-export const unFollowAC = (userId: string) => {
+export const unFollowAC = (userId: number) => {
     return {
         type: 'UNFOLLOW',
         userId

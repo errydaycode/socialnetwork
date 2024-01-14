@@ -12,12 +12,14 @@ type mapStateToPropsType = {
 
 }
 type mapDispatchToPropsType = {
-    follow: (userId: string)=> void
-    unFollow: (userId: string) => void
+    follow: (userId: number)=> void
+    unFollow: (userId: number) => void
     setUsers: (users: UserType[]) => void
 }
 
 export type UsersPageType = mapStateToPropsType & mapDispatchToPropsType
+
+
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
@@ -26,10 +28,10 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
 }
 let mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): mapDispatchToPropsType => {
     return {
-            follow: (userId: string) => {
+            follow: (userId: number) => {
                 dispatch(followAC(userId))
             },
-             unFollow: (userId: string) => {
+             unFollow: (userId: number) => {
             dispatch(unFollowAC(userId))
         },
         setUsers: (users: UserType[]) => {
