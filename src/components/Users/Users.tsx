@@ -6,15 +6,14 @@ import userPhoto from '../../assets/images/user.png'
 
 
 export class Users extends React.Component<UsersPageType, any>{
+    
 
-    constructor(props: UsersPageType) {
-        super(props);
 
-            axios.get('https://social-network.samuraijs.com/api/1.0/users')
-                .then((res) => {
-                    this.props.setUsers(res.data.items)
-                })
-
+    componentDidMount() {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then((res) => {
+                this.props.setUsers(res.data.items)
+            })
     }
 
 
