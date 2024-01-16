@@ -9,6 +9,9 @@ import {followAC, setUsersAC, unFollowAC, UserType} from "../../redux/users-redu
 
 type mapStateToPropsType = {
     users: UserType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 
 }
 type mapDispatchToPropsType = {
@@ -23,7 +26,10 @@ export type UsersPageType = mapStateToPropsType & mapDispatchToPropsType
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
-        users: state.usersPage.users
+        users: state.usersPage.users,
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount,
+        currentPage: state.usersPage.currentPage
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): mapDispatchToPropsType => {

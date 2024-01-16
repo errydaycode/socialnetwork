@@ -17,7 +17,10 @@ export type UserType = {
 }
 
 let initialState = {
-    users: [] as UserType[]
+    users: [] as UserType[],
+    pageSize: 5,
+    totalUsersCount: 19,
+    currentPage: 1
 }
 
 export type InitialUserReducerStateType =  typeof initialState
