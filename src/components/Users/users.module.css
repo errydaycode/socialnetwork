@@ -6,4 +6,9 @@
 
 .selectedPage {
     font-weight: bold;
+    cursor: pointer;
+}
+
+.unSelectedPage {
+    cursor: pointer;
 }

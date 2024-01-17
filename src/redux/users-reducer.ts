@@ -19,13 +19,13 @@ export type UserType = {
 let initialState = {
     users: [] as UserType[],
     pageSize: 5,
-    totalUsersCount: 19,
+    totalUsersCount: 0,
     currentPage: 1
 }
 
 export type InitialUserReducerStateType =  typeof initialState
 const usersReducer = (state: InitialUserReducerStateType = initialState, action: ActionTypes): InitialUserReducerStateType => {
-    debugger
+
     switch (action.type) {
         case "FOLLOW":
             return {
@@ -37,8 +37,17 @@ const usersReducer = (state: InitialUserReducerStateType = initialState, action:
             }
         case "SET-USERS":
             return {
-                ...state, users: [...state.users, ...action.users]
+                ...state, users:  action.users
             }
+        case 'SET-CURRENT-PAGE' :
+            return {
+                ...state, currentPage: action.currentPage
+            }
+        case 'SET-USERS-COUNT' :
+            return {
+                ...state, totalUsersCount: action.usersCount
+            }
+
         default:
             return state
     }
@@ -65,5 +74,19 @@ export const setUsersAC = (users: UserType[]) => {
         users
     } as const
 }
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: 'SET-CURRENT-PAGE',
+        currentPage
+    } as const
+}
+
+export const setTotalUsersCountAC = (usersCount: number) => {
+    return {
+        type: 'SET-USERS-COUNT',
+        usersCount
+    } as const
+}
+
 
 export default usersReducer;

@@ -3,6 +3,7 @@ import {UsersPageType} from "./UsersContainer";
 import s from './users.module.css'
 import axios from "axios";
 import userPhoto from '../../assets/images/user.png'
+import {logDOM} from "@testing-library/react";
 
 
 export class Users extends React.Component<UsersPageType, any>{
@@ -10,12 +11,22 @@ export class Users extends React.Component<UsersPageType, any>{
 
 
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then((res) => {
                 this.props.setUsers(res.data.items)
+                this.props.setTotalUsersCount(res.data.totalCount)
             })
     }
 
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then((res) => {
+                this.props.setUsers(res.data.items)
+                console.log(res.data.items)
+            })
+
+    }
 
     render() {
 
@@ -27,13 +38,16 @@ export class Users extends React.Component<UsersPageType, any>{
         }
 
 
+
+
+
         return  <div>
 
             <div>
                 {
                     pages.map((p)=> {
-                        let spanClassName = this.props.currentPage === p ? s.selectedPage : ''
-                    return <span className={ spanClassName}>{p}</span>
+                        let spanClassName = this.props.currentPage === p ? s.selectedPage : s.unSelectedPage
+                    return <span className={spanClassName} onClick={ ()=> this.onPageChanged(p)}>{p}.</span>
                     })
                 }
             </div>
