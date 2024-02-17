@@ -4,7 +4,14 @@ import React from "react";
 import ProfileReducer, {AddPostAC, UpdateNewPostTextAC} from "./profile-reducer";
 import SidebarReducer from "./sidebar-reducer";
 import DialogsReducer, {AddMessageAC, UpdateNewMessageTextAC} from "./dialogs-reducer";
-import {followAC, setCurrentPageAC, setTotalUsersCountAC, setUsersAC, unFollowAC} from "./users-reducer";
+import {
+    followAC,
+    setCurrentPageAC,
+    setIsFetchingAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    unFollowAC
+} from "./users-reducer";
 
 export type messagesPageType = {
     dialogs: dialogsDataType[]
@@ -44,7 +51,7 @@ export type ActionTypes = ReturnType<typeof AddPostAC> |
     ReturnType<typeof AddMessageAC> | ReturnType<typeof UpdateNewMessageTextAC> |
     ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof setUsersAC>
 | ReturnType<typeof setCurrentPageAC>
-| ReturnType<typeof setTotalUsersCountAC>
+| ReturnType<typeof setTotalUsersCountAC> | ReturnType<typeof setIsFetchingAC>
 
 
 export const store: StoreType = {

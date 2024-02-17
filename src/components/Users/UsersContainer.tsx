@@ -5,7 +5,7 @@ import {Dispatch} from "redux";
 import {ActionTypes, messagesPageType} from "../../redux/store";
 import {
     followAC,
-    setCurrentPageAC,
+    setCurrentPageAC, setIsFetchingAC,
     setTotalUsersCountAC,
     setUsersAC,
     unFollowAC,
@@ -13,21 +13,25 @@ import {
 } from "../../redux/users-reducer";
 import axios from "axios";
 import Users from "./Users";
-
+import preloader from '../../assets/images/loading-96.gif'
+import s from "./users.module.css";
+import Preloader from "../common/Preloader/Preloader";
 
 type mapStateToPropsType = {
     users: UserType[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 
 }
 type mapDispatchToPropsType = {
-    follow: (userId: number)=> void
+    follow: (userId: number) => void
     unFollow: (userId: number) => void
     setUsers: (users: UserType[]) => void
     setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount:(usersCount: number) => void
+    setTotalUsersCount: (usersCount: number) => void
+    toggleIsFetching : (isFetching: boolean) => void
 }
 export type UsersPageType = mapStateToPropsType & mapDispatchToPropsType
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
@@ -35,7 +39,8 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage
+        currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): mapDispatchToPropsType => {
@@ -52,42 +57,74 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): mapDispatchToPropsTy
         setCurrentPage: (pageNumber: number) => {
             dispatch(setCurrentPageAC(pageNumber))
         },
-        setTotalUsersCount:(usersCount: number) => {
+        setTotalUsersCount: (usersCount: number) => {
             dispatch(setTotalUsersCountAC(usersCount))
+        },
+        toggleIsFetching: (isFetching: boolean) => {
+            dispatch(setIsFetchingAC(isFetching))
         }
     }
 
 }
 
-
- class UsersContainer extends React.Component<UsersPageType> {
+class UsersContainer extends React.Component<UsersPageType> {
 
     componentDidMount() {
+        this.props.toggleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then((res) => {
                 this.props.setUsers(res.data.items)
                 this.props.setTotalUsersCount(res.data.totalCount)
+                this.props.toggleIsFetching(false)
             })
     }
+
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
+        this.props.toggleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then((res) => {
                 this.props.setUsers(res.data.items)
+                this.props.toggleIsFetching(false)
             })
 
     }
+
     render() {
-        return <Users totalUsersCount={this.props.totalUsersCount}
-                      users={this.props.users}
-                      currentPage={this.props.currentPage}
-                      onPageChanged={this.onPageChanged}
-                      pageSize={this.props.pageSize}
-                      follow={this.props.follow}
-                      unFollow={this.props.unFollow}
-        />
+        return <>
+            {this.props.isFetching ? <Preloader/> : null}
+            <Users totalUsersCount={this.props.totalUsersCount}
+                   users={this.props.users}
+                   currentPage={this.props.currentPage}
+                   onPageChanged={this.onPageChanged}
+                   pageSize={this.props.pageSize}
+                   follow={this.props.follow}
+                   unFollow={this.props.unFollow}
+            />
+        </>
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps) (UsersContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+
+
+// Server API - API сервера(интерфейс) как с сервером взаимодействовать
+// Надо знать : 1. URL адрес на который слать запрос
+// Надо знать : 2. Тип запроса - get/post
+// Надо знать : 3/4. request data/response data - что отправляем на сервер и что получаем
+//Надо знать : 5. HttpCodes 404, 3xx - redirect, 5xx-server, 2xx- OK. Коды ответа от сервера.
+
+// Server REST API - определенный набор правил . До недавних пор хватало правил Server API ,
+// но с появлением SPA, запросы стали более частые, более умные, и понадобились правила, как это все
+// объеденить в небольшой свод правил, чтобы от проекта к проекту была согласованность работы с сервером.
+// До ввода правил REST API, пользовались только get и post запросом, отправляя их на нужный URL -
+// "....com/api/users/get" - get
+// "....com/api/users/create" - post
+// "....com/api/users/update" - post
+// "....com/api/users/delete" - post
+// GET-POST . То есть для каждой сущности на сервере было 4 endpoint'a .
+// Со временем, это стало не очень удобно и было принятно решение сделать свод правил REST API, в котором все запросы
+// Делаются на один endpoint - "....com/api/users" - get/post/put/delete, но с разным типом запросов, в зависимости от того, что хотим получить.
+// GET-POST-PUT-DELETE (CRUD)
+// Прикладная реализация REST API - мы имеем одну сущность(endpoint) и работаем с ней, направляя разные типы запросов

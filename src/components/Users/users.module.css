@@ -12,3 +12,8 @@
 .unSelectedPage {
     cursor: pointer;
 }
+
+.preloader {
+    width: 75px;
+    height: 75px;
+}
