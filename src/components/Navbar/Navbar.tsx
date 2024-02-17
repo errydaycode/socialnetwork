@@ -13,9 +13,9 @@ import { NavbarPropsType} from "./NavbarContainer";
 export const Navbar = (props: NavbarPropsType) => {
 
 
-                let mappedFriends = props.friends.map(el => { // ??
+                let mappedFriends = props.friends.map((el) => { // ??
                     return (
-                        <div  className={s.friendsNames}>
+                        <div key={el.id}  className={s.friendsNames}>
                             <img src={el.img} alt="avas"/>
                             <span>{el.name} </span>
                         </div>

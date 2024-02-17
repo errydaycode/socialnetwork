@@ -1,17 +1,9 @@
 import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
 import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
-import React from "react";
-import ProfileReducer, {AddPostAC, UpdateNewPostTextAC} from "./profile-reducer";
+import ProfileReducer, {AddPostAC, setUserProfile, UpdateNewPostTextAC} from "./profile-reducer";
 import SidebarReducer from "./sidebar-reducer";
 import DialogsReducer, {AddMessageAC, UpdateNewMessageTextAC} from "./dialogs-reducer";
-import {
-    followAC,
-    setCurrentPageAC,
-    setIsFetchingAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    unFollowAC
-} from "./users-reducer";
+import {follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unFollow} from "./users-reducer";
 
 export type messagesPageType = {
     dialogs: dialogsDataType[]
@@ -21,6 +13,7 @@ export type messagesPageType = {
 export type profilePageType = {
     posts: postsDataType[]
     newPostText: string
+    profile: UserProfileType
 }
 export type FriendsNavType = {
     id: number
@@ -49,10 +42,35 @@ export type StoreType = {
 export type ActionTypes = ReturnType<typeof AddPostAC> |
     ReturnType<typeof UpdateNewPostTextAC>|
     ReturnType<typeof AddMessageAC> | ReturnType<typeof UpdateNewMessageTextAC> |
-    ReturnType<typeof followAC> | ReturnType<typeof unFollowAC> | ReturnType<typeof setUsersAC>
-| ReturnType<typeof setCurrentPageAC>
-| ReturnType<typeof setTotalUsersCountAC> | ReturnType<typeof setIsFetchingAC>
+    ReturnType<typeof follow> | ReturnType<typeof unFollow> | ReturnType<typeof setUsers>
+| ReturnType<typeof setCurrentPage>
+| ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>
 
+
+export type UserProfileType = {
+	aboutMe: string;
+	contacts: UserProfileTypeContacts;
+	lookingForAJob: boolean;
+	lookingForAJobDescription: string;
+	fullName: string;
+	userId: number;
+	photos: UserProfileTypePhotos;
+}
+export type UserProfileTypeContacts = {
+	facebook: string;
+	vk: string;
+	twitter: string;
+	instagram: string;
+	github: string;
+    website:  string | null
+    mainLink: string | null
+}
+export type UserProfileTypePhotos = {
+	small: string;
+	large: string;
+}
 
 export const store: StoreType = {
     // приватные методы и свойства
@@ -82,7 +100,8 @@ export const store: StoreType = {
                 {id: 1, message: 'Ты... это...заходи, если что!..', likesCount: 172},
                 {id: 2, message: 'Щас спою!', likesCount: 172},
             ],
-            newPostText: ''
+            newPostText: '',
+            profile: {} as UserProfileType
         },
 
         navbar: {

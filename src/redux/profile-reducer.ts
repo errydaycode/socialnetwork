@@ -1,4 +1,4 @@
-import {ActionTypes} from "./store";
+import {ActionTypes, UserProfileType} from "./store";
 import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
 
 
@@ -7,7 +7,8 @@ let initialState = {
         {id: 1, message: 'Ты... это...заходи, если что!..', likesCount: 172},
         {id: 2, message: 'Щас спою!', likesCount: 172},
     ] as Array<postsDataType>,
-    newPostText: ''
+    newPostText: '',
+    profile:  {} as UserProfileType
 }
 
 export type InitialProfileReducerStateType =  typeof initialState
@@ -30,18 +31,19 @@ const ProfileReducer = (state: InitialProfileReducerStateType = initialState, ac
                 ...state,
                 newPostText: action.postMsg
             }
+        case "SET-USER-PRFOFLE":
+            return {
+                ...state,
+                profile: action.profile
+            }
         default:
             return state
     }
 
 }
 
-export const AddPostAC = ()  => {
-
-    return {
-        type: 'ADD-POST'
-    } as const
-}
+export const AddPostAC = ()  => ({type: 'ADD-POST'}  as const)
+export const setUserProfile = (profile: UserProfileType)  => ({type: 'SET-USER-PRFOFLE', profile } as const)
 
 export const UpdateNewPostTextAC = (postMsg: string) => {
     debugger

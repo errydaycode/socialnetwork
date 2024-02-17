@@ -1,11 +1,8 @@
-
 import {combineReducers, createStore} from "redux";
 import ProfileReducer from "./profile-reducer";
 import DialogsReducer from "./dialogs-reducer";
 import SidebarReducer from "./sidebar-reducer";
-import {StoreType} from "./store";
 import usersReducer from "./users-reducer";
-
 
 
 let rootReducer = combineReducers( {
@@ -17,7 +14,10 @@ let rootReducer = combineReducers( {
 
 
 
+
 export const store = createStore(rootReducer)
 export type AppRootStateType = ReturnType<typeof rootReducer>
 // автоматически, createStore создает внутри себя стейт, с теми св-вами, что мы указали в рутовом редьюсере
 
+// @ts-ignore
+window.store = store

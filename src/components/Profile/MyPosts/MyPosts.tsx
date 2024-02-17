@@ -1,8 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './Myposts.module.css'
 import {Post} from "./Post/Post";
-import {AddPostAC, UpdateNewPostTextAC} from "../../../redux/profile-reducer";
-import {ActionTypes} from "../../../redux/store";
 import {PostsPropsType} from "./MyPostsContainer";
 
 
@@ -22,7 +20,7 @@ export type postsDataType = {
 const
     MyPosts = (props: PostsPropsType) => {
 
-        let mappedPosts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount}/>)
+        let mappedPosts = props.posts.map((post, index) => <Post key={index} message={post.message} likesCount={post.likesCount}/>)
 
         let onAddPost = () => {
             props.addPostHandler()

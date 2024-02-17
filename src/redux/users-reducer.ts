@@ -1,6 +1,4 @@
 import {ActionTypes} from "./store";
-import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
-
 
 
 export type UserType = {
@@ -56,41 +54,41 @@ const usersReducer = (state: InitialUserReducerStateType = initialState, action:
 
 }
 
-export const followAC = (userId: number)  => {
+export const follow = (userId: number)  => {
     return {
         type: 'FOLLOW',
         userId
     } as const
 }
 
-export const unFollowAC = (userId: number) => {
+export const unFollow = (userId: number) => {
     return {
         type: 'UNFOLLOW',
         userId
     } as const
 }
 
-export const setUsersAC = (users: UserType[]) => {
+export const setUsers = (users: UserType[]) => {
     return {
         type: 'SET-USERS',
         users
     } as const
 }
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: 'SET-CURRENT-PAGE',
         currentPage
     } as const
 }
 
-export const setTotalUsersCountAC = (usersCount: number) => {
+export const setTotalUsersCount = (usersCount: number) => {
     return {
         type: 'SET-USERS-COUNT',
         usersCount
     } as const
 }
 
-export const setIsFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
     return {
         type: 'SET-TOGGLE-IS-FETCHING',
         isFetching

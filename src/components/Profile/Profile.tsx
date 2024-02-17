@@ -1,20 +1,19 @@
 import React from 'react';
-import MyPosts from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionTypes, profilePageType, StoreType} from "../../redux/store";
+import {UserProfileType} from "../../redux/store";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
-// type ProfileProps = {
-//     store: StoreType
-//
-// }
+type ProfileProps = {
+    profile: UserProfileType
 
-export const Profile = () => {
+}
+
+export const Profile = (props: ProfileProps) => {
 
     return (
         <div>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <MyPostsContainer />
         </div>
     );

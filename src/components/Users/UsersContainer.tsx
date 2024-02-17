@@ -1,20 +1,17 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
-import {ActionTypes, messagesPageType} from "../../redux/store";
 import {
-    followAC,
-    setCurrentPageAC, setIsFetchingAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    unFollowAC,
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unFollow,
     UserType
 } from "../../redux/users-reducer";
 import axios from "axios";
 import Users from "./Users";
-import preloader from '../../assets/images/loading-96.gif'
-import s from "./users.module.css";
 import Preloader from "../common/Preloader/Preloader";
 
 type mapStateToPropsType = {
@@ -43,29 +40,29 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
         isFetching: state.usersPage.isFetching
     }
 }
-let mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): mapDispatchToPropsType => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unFollow: (userId: number) => {
-            dispatch(unFollowAC(userId))
-        },
-        setUsers: (users: UserType[]) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber: number) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setTotalUsersCount: (usersCount: number) => {
-            dispatch(setTotalUsersCountAC(usersCount))
-        },
-        toggleIsFetching: (isFetching: boolean) => {
-            dispatch(setIsFetchingAC(isFetching))
-        }
-    }
-
-}
+// let mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): mapDispatchToPropsType => {
+//     return {
+//         follow: (userId: number) => {
+//             dispatch(follow(userId))
+//         },
+//         unFollow: (userId: number) => {
+//             dispatch(unFollow(userId))
+//         },
+//         setUsers: (users: UserType[]) => {
+//             dispatch(setUsers(users))
+//         },
+//         setCurrentPage: (pageNumber: number) => {
+//             dispatch(setCurrentPage(pageNumber))
+//         },
+//         setTotalUsersCount: (usersCount: number) => {
+//             dispatch(setTotalUsersCount(usersCount))
+//         },
+//         toggleIsFetching: (isFetching: boolean) => {
+//             dispatch(setIsFetching(isFetching))
+//         }
+//     }
+//
+// }
 
 class UsersContainer extends React.Component<UsersPageType> {
 
@@ -106,7 +103,14 @@ class UsersContainer extends React.Component<UsersPageType> {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps, {
+    follow,
+    unFollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFetching
+})          (UsersContainer)
 
 
 // Server API - API сервера(интерфейс) как с сервером взаимодействовать
