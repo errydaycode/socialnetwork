@@ -8,7 +8,8 @@ type ProfileInfoProps = {
 }
 
 export const ProfileInfo = (props: ProfileInfoProps) => {
-    console.log(props)
+    //debugger
+   // console.log(props.profile.contacts.vk)
     return (
         <div>
             <div>
@@ -21,10 +22,10 @@ export const ProfileInfo = (props: ProfileInfoProps) => {
             <div className={s.description}>
                 <img src={props.profile.photos?.small} alt="userAvatar" className={s.userAvatar}/>
                 <div>{props.profile.aboutMe}</div>
-                <h3>My Contacts :</h3>
-                <div>GITHUB : {props.profile.contacts.github === null ? 'user did not add any info' : props.profile.contacts.github}</div>
-                <div> VK : {props.profile.contacts.vk === null ? 'user did not add any info' : props.profile.contacts.vk}</div>
-                <div> FACEBOOK : {props.profile.contacts.facebook === null ? 'user did not add any info' :  props.profile.contacts.facebook}</div>
+                {/*<h3>My Contacts :</h3>*/}
+                {/*<div>GITHUB : {props.profile.contacts.github === null ? 'user did not add any info' : props.profile.contacts.github}</div>*/}
+                {/*<div> VK : {props.profile.contacts.vk === null ? 'user did not add any info' : props.profile.contacts.vk}</div>*/}
+                {/*<div> FACEBOOK : {props.profile.contacts.facebook === null ? 'user did not add any info' :  props.profile.contacts.facebook}</div>*/}
 
             </div>
         </div>

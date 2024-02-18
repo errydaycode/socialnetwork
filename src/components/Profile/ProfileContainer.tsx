@@ -12,16 +12,18 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 //
 // }
 
- class ProfileContainer extends React.Component<CommonPropsType>{
+  class ProfileContainer extends React.Component<CommonPropsType>{
 
     componentDidMount() {
-        debugger
+        //debugger
         let userId = this.props.match.params.userId
-        if (!userId) {
+        console.log(userId)
+        if (userId === null || userId === undefined) {
             userId = '2'
         }
         axios.get('https://social-network.samuraijs.com/api/1.0/profile/' + userId)
             .then((res) => {
+               //console.log(res.data)
                 this.props.setUserProfile(res.data)
             })
     }
