@@ -3,7 +3,15 @@ import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
 import ProfileReducer, {AddPostAC, setUserProfile, UpdateNewPostTextAC} from "./profile-reducer";
 import SidebarReducer from "./sidebar-reducer";
 import DialogsReducer, {AddMessageAC, UpdateNewMessageTextAC} from "./dialogs-reducer";
-import {follow, setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching, unFollow} from "./users-reducer";
+import {
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    toggleFollowingProgress,
+    unFollow
+} from "./users-reducer";
 
 export type messagesPageType = {
     dialogs: dialogsDataType[]
@@ -47,6 +55,7 @@ export type ActionTypes = ReturnType<typeof AddPostAC> |
 | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof toggleFollowingProgress>
 
 
 export type UserProfileType = {

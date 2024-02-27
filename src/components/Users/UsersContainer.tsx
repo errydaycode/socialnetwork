@@ -2,10 +2,10 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {
-    follow,
+    follow, followingProgressType,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers,
+    setUsers, toggleFollowingProgress,
     toggleIsFetching,
     unFollow,
     UserType
@@ -20,6 +20,7 @@ type mapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: followingProgressType
 
 }
 type mapDispatchToPropsType = {
@@ -29,6 +30,7 @@ type mapDispatchToPropsType = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (usersCount: number) => void
     toggleIsFetching : (isFetching: boolean) => void
+    toggleFollowingProgress:  (isFollowing: boolean, userId: number) => void
 }
 export type UsersPageType = mapStateToPropsType & mapDispatchToPropsType
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
@@ -37,7 +39,8 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 // let mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): mapDispatchToPropsType => {
@@ -97,6 +100,8 @@ class UsersContainer extends React.Component<UsersPageType> {
                    pageSize={this.props.pageSize}
                    follow={this.props.follow}
                    unFollow={this.props.unFollow}
+                   toggleFollowingProgress={this.props.toggleFollowingProgress}
+                   followingInProgress={this.props.followingInProgress}
             />
         </>
     }
@@ -109,8 +114,9 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    toggleIsFetching
-})          (UsersContainer)
+    toggleIsFetching,
+    toggleFollowingProgress
+})(UsersContainer)
 
 
 // Server API - API сервера(интерфейс) как с сервером взаимодействовать
