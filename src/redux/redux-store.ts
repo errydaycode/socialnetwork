@@ -1,9 +1,10 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import ProfileReducer from "./profile-reducer";
 import DialogsReducer from "./dialogs-reducer";
 import SidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
+import thunk from "redux-thunk";
 
 
 let rootReducer = combineReducers( {
@@ -17,7 +18,7 @@ let rootReducer = combineReducers( {
 
 
 
-export const store = createStore(rootReducer)
+export const store = createStore(rootReducer, applyMiddleware(thunk))
 export type AppRootStateType = ReturnType<typeof rootReducer>
 // автоматически, createStore создает внутри себя стейт, с теми св-вами, что мы указали в рутовом редьюсере
 

@@ -1,4 +1,6 @@
 import {ActionTypes} from "./store";
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 
 export type UserType = {
@@ -111,6 +113,17 @@ export const toggleFollowingProgress = (isFollowing: boolean, userId: number) =>
         isFollowing,
         userId
     } as const
+}
+
+
+
+export const getUsersThunkCreator = (page: number, pageSizeUserPage: number) => async (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true))
+    // dispatch(setCurrentPage(page))
+    let data = await usersAPI.getUsers(page, pageSizeUserPage)
+    dispatch(toggleIsFetching(false))
+    dispatch(setUsers(data.items))
+    dispatch(setTotalUsersCount(data.totalCount))
 }
 
 
