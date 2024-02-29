@@ -37,6 +37,7 @@ const usersReducer = (state: InitialUserReducerStateType = initialState, action:
                 ...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: true} : el)
             }
         case "UNFOLLOW":
+            debugger
             return {
                 ...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: false} : el)
             }
@@ -67,14 +68,15 @@ const usersReducer = (state: InitialUserReducerStateType = initialState, action:
 
 }
 
-export const follow = (userId: number) => {
+export const followSuccess = (userId: number) => {
     return {
         type: 'FOLLOW',
         userId
     } as const
 }
 
-export const unFollow = (userId: number) => {
+export const unFollowSuccess = (userId: number) => {
+    debugger
     return {
         type: 'UNFOLLOW',
         userId
@@ -124,6 +126,32 @@ export const getUsersThunkCreator = (page: number, pageSizeUserPage: number) => 
     dispatch(toggleIsFetching(false))
     dispatch(setUsers(data.items))
     dispatch(setTotalUsersCount(data.totalCount))
+}
+
+
+export const follow = (userId: number) =>  (dispatch: Dispatch) => {
+     dispatch(toggleFollowingProgress( true, userId))
+    usersAPI.follow(userId)
+        .then((res) => {
+            if (res.resultCode === 0) {
+                dispatch(followSuccess(userId))
+            }
+            dispatch( toggleFollowingProgress( false , userId))
+        })
+
+}
+
+
+export const unfollow = (userId: number) =>  (dispatch: Dispatch) => {
+    dispatch(toggleFollowingProgress( true, userId))
+    usersAPI.unfollow(userId)
+        .then((res) => {
+            if (res.resultCode === 0) {
+                dispatch(unFollowSuccess(userId))
+            }
+            dispatch(toggleFollowingProgress( false , userId))
+        })
+
 }
 
 

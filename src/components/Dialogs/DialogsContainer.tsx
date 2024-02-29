@@ -5,7 +5,6 @@ import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
-import {postsDataType} from "../Profile/MyPosts/MyPosts";
 
 //
 // export type dialogsDataType = {
