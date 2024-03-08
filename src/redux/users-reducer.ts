@@ -121,7 +121,7 @@ export const toggleFollowingProgress = (isFollowing: boolean, userId: number) =>
 
 export const getUsersThunkCreator = (page: number, pageSizeUserPage: number) => async (dispatch: Dispatch) => {
     dispatch(toggleIsFetching(true))
-    // dispatch(setCurrentPage(page))
+    dispatch(setCurrentPage(page))
     let data = await usersAPI.getUsers(page, pageSizeUserPage)
     dispatch(toggleIsFetching(false))
     dispatch(setUsers(data.items))
