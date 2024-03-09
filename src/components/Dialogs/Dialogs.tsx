@@ -2,8 +2,8 @@ import React, {ChangeEvent, KeyboardEvent}  from 'react';
 import  s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-
 import {DialogsPropsType} from "./DialogsContainer";
+import {Redirect} from "react-router-dom";
 
 
 export type dialogsDataType ={
@@ -46,6 +46,7 @@ export const Dialogs = (props:DialogsPropsType ) => {
 
     }
 
+    if (!props.isAuth) return <Redirect to={'login'}/>
 
     return (
         <div className={s.dialogs}>
