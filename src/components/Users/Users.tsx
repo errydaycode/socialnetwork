@@ -30,7 +30,6 @@ const Users = (props: UsersPresentationalType) => {
             <div>
                 {
                     pages.map((p, index)=> {
-                        debugger
                         let spanClassName = props.currentPage === p ? s.selectedPage : s.unSelectedPage
                         return <span key={index} className={spanClassName} onClick={ ()=> props.onPageChanged(p)}>{p}.</span>
                     })

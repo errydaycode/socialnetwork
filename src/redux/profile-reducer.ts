@@ -1,5 +1,7 @@
 import {ActionTypes, UserProfileType} from "./store";
 import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
+import {Dispatch} from "redux";
+import {profileApi} from "../api/api";
 
 
 let initialState = {
@@ -51,6 +53,15 @@ export const UpdateNewPostTextAC = (postMsg: string) => {
         type: 'UPDATE-NEW-POST-TEXT',
         postMsg
     } as const
+}
+
+
+export const setUserProfileTC = (userId: string) => (dispatch: Dispatch) => {
+    profileApi.getUserProfile(userId)
+        .then((res) => {
+            //console.log(res.data)
+            dispatch(setUserProfile(res))
+        })
 }
 
 export default ProfileReducer;
