@@ -12,6 +12,7 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {withAuthRedicrect} from "../../hoc/withAuthRedicrect";
 
 type mapStateToPropsType = {
     users: UserType[]
@@ -94,13 +95,14 @@ class UsersContainer extends React.Component<UsersPageType> {
 }
 
 
-export default connect(mapStateToProps, {
+
+export default  withAuthRedicrect(connect(mapStateToProps, {
     follow,
     unfollow,
     setCurrentPage,
     toggleFollowingProgress,
     getUsersThunkCreator
-})(UsersContainer)
+})(UsersContainer))
 
 
 // Server API - API сервера(интерфейс) как с сервером взаимодействовать
