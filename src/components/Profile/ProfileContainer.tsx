@@ -6,13 +6,14 @@ import {AppRootStateType} from "../../redux/redux-store";
 import {UserProfileType} from "../../redux/store";
 import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedicrect} from "../../hoc/withAuthRedicrect";
+import {compose} from "redux";
 
 // type ProfileProps = {
 //     store: StoreType
 //
 // }
 
-  class ProfileContainer extends React.Component<CommonPropsType>{
+class ProfileContainer extends React.Component<CommonPropsType> {
 
     componentDidMount() {
         //debugger
@@ -20,29 +21,37 @@ import {withAuthRedicrect} from "../../hoc/withAuthRedicrect";
         if (!userId) {
             userId = '2'
         }
-       this.props.setUserProfileTC(userId)
+        this.props.setUserProfileTC(userId)
     }
+
     render() {
 
 
-
-    return (
-        <div>
-            <Profile profile={this.props.profile}/>
-        </div>
-    );
-}}
-
-
-
-let AuthRedirectComponent = withAuthRedicrect(ProfileContainer)
-
-let mapStateToProps = (state: AppRootStateType)=> {
-   return {
-       profile: state.profilePage.profile,
-   }
+        return (
+            <div>
+                <Profile profile={this.props.profile}/>
+            </div>
+        );
+    }
 }
 
+let mapStateToProps = (state: AppRootStateType) => {
+    return {
+        profile: state.profilePage.profile,
+    }
+}
+export default compose(
+    connect(mapStateToProps, {setUserProfileTC}),
+    withRouter,
+    withAuthRedicrect
+)(ProfileContainer)
+
+// let AuthRedirectComponent = withAuthRedicrect(ProfileContainer)
+
+//
+// let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
+
+// export default connect(mapStateToProps, {setUserProfileTC})(WithUrlDataContainerComponent)
 
 
 type PathParamsType = {
@@ -58,8 +67,3 @@ type mapDispatchToPropsType = {
 }
 export type OwnPropsType = mapStateToPropsType & mapDispatchToPropsType
 type CommonPropsType = RouteComponentProps<PathParamsType> & OwnPropsType
-
-
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
-
-export default connect(mapStateToProps, {setUserProfileTC})(WithUrlDataContainerComponent)

@@ -4,7 +4,7 @@ import {ActionTypes, messagesPageType} from "../../redux/store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {Redirect} from "react-router-dom";
 import {withAuthRedicrect} from "../../hoc/withAuthRedicrect";
 
@@ -81,8 +81,14 @@ export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
          }
      }
  }
+//let AuthRedirectComponent = withAuthRedicrect(Dialogs)
+//
+// export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps) (AuthRedirectComponent);
+ export default compose(
+     connect(mapStateToProps, mapDispatchToProps),
+     withAuthRedicrect
+ )
+ (Dialogs)
 
 
-let AuthRedirectComponent = withAuthRedicrect(Dialogs)
-
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps) (AuthRedirectComponent);
+//
