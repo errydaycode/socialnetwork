@@ -81,10 +81,12 @@ export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
          }
      }
  }
-//let AuthRedirectComponent = withAuthRedicrect(Dialogs)
+
+// let AuthRedirectComponent = withAuthRedicrect(Dialogs)
 //
 // export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps) (AuthRedirectComponent);
- export default compose(
+
+ export default compose<React.ComponentType>(
      connect(mapStateToProps, mapDispatchToProps),
      withAuthRedicrect
  )

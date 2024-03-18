@@ -99,7 +99,7 @@ class UsersContainer extends React.Component<UsersPageType> {
 
  // export default  withAuthRedicrect((UsersContainer))
 
-export default compose(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         follow,
         unfollow,
