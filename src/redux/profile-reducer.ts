@@ -10,7 +10,8 @@ let initialState = {
         {id: 2, message: 'Щас спою!', likesCount: 172},
     ] as Array<postsDataType>,
     newPostText: '',
-    profile:  {} as UserProfileType
+    profile:  {} as UserProfileType,
+    status: 'xd'
 }
 
 export type InitialProfileReducerStateType =  typeof initialState
@@ -38,6 +39,11 @@ const ProfileReducer = (state: InitialProfileReducerStateType = initialState, ac
                 ...state,
                 profile: action.profile
             }
+        case "SET-STATUS" :
+            return {
+                ...state,
+                status: action.status
+            }
         default:
             return state
     }
@@ -54,6 +60,7 @@ export const UpdateNewPostTextAC = (postMsg: string) => {
         postMsg
     } as const
 }
+export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as const)
 
 
 export const setUserProfileTC = (userId: string) => (dispatch: Dispatch) => {
@@ -62,6 +69,25 @@ export const setUserProfileTC = (userId: string) => (dispatch: Dispatch) => {
             //console.log(res.data)
             dispatch(setUserProfile(res))
         })
+}
+
+export const getStatus = (userId: string) => (dispatch: Dispatch) => {
+    profileApi.getStatus(userId)
+        .then((res) =>  {
+            dispatch(setStatusAC(res.data))
+        })
+
+}
+
+export const updateStatus = (status: string) => (dispatch: Dispatch) => {
+    profileApi.updateStatus(status)
+        .then((res) =>  {
+            if(res.data.resultCode = 0) {
+                dispatch(setStatusAC(status))
+            }
+
+        })
+
 }
 
 export default ProfileReducer;

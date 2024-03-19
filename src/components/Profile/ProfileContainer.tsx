@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {ReactComponentElement} from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {setUserProfileTC} from "../../redux/profile-reducer";
+import {getStatus, setUserProfileTC, updateStatus} from "../../redux/profile-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
 import {UserProfileType} from "../../redux/store";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, useLocation, useParams, withRouter} from "react-router-dom";
 import {withAuthRedicrect} from "../../hoc/withAuthRedicrect";
 import {compose} from "redux";
 
@@ -18,10 +18,12 @@ class ProfileContainer extends React.Component<CommonPropsType> {
     componentDidMount() {
         //debugger
         let userId = this.props.match.params.userId
+        console.log(this.props.match.params)
         if (!userId) {
             userId = '2'
         }
         this.props.setUserProfileTC(userId)
+        this.props.getStatus(userId)
     }
 
     render() {
@@ -29,7 +31,10 @@ class ProfileContainer extends React.Component<CommonPropsType> {
 
         return (
             <div>
-                <Profile profile={this.props.profile}/>
+                <Profile profile={this.props.profile}
+                         status={this.props.status}
+                         updateStatus={updateStatus}
+                />
             </div>
         );
     }
@@ -38,13 +43,19 @@ class ProfileContainer extends React.Component<CommonPropsType> {
 let mapStateToProps = (state: AppRootStateType) => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status
     }
 }
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {setUserProfileTC}),
+    connect(mapStateToProps, {setUserProfileTC, getStatus, updateStatus}),
     withRouter,
     withAuthRedicrect
 )(ProfileContainer)
+
+
+
+
+
 
 // let AuthRedirectComponent = withAuthRedicrect(ProfileContainer)
 
@@ -61,9 +72,12 @@ type PathParamsType = {
 type mapStateToPropsType = {
     profile: UserProfileType
     isAuth: boolean | undefined
+    status: string
 }
 type mapDispatchToPropsType = {
     setUserProfileTC: (userId: string) => void
+    getStatus: (userId: string) => void
+    updateStatus: (status: string) => void
 }
 export type OwnPropsType = mapStateToPropsType & mapDispatchToPropsType
 type CommonPropsType = RouteComponentProps<PathParamsType> & OwnPropsType

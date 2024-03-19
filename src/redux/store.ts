@@ -1,6 +1,6 @@
 import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
 import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
-import ProfileReducer, {AddPostAC, setUserProfile, UpdateNewPostTextAC} from "./profile-reducer";
+import ProfileReducer, {AddPostAC, setStatusAC, setUserProfile, UpdateNewPostTextAC} from "./profile-reducer";
 import SidebarReducer from "./sidebar-reducer";
 import DialogsReducer, {AddMessageAC, UpdateNewMessageTextAC} from "./dialogs-reducer";
 import {
@@ -21,6 +21,7 @@ export type profilePageType = {
     posts: postsDataType[]
     newPostText: string
     profile: UserProfileType
+    status: string
 }
 export type FriendsNavType = {
     id: number
@@ -55,6 +56,7 @@ export type ActionTypes = ReturnType<typeof AddPostAC> |
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof toggleFollowingProgress>
+| ReturnType<typeof setStatusAC>
 
 
 export type UserProfileType = {
@@ -109,7 +111,8 @@ export const store: StoreType = {
                 {id: 2, message: 'Щас спою!', likesCount: 172},
             ],
             newPostText: '',
-            profile: {} as UserProfileType
+            profile: {} as UserProfileType,
+            status: ''
         },
 
         navbar: {

@@ -5,6 +5,8 @@ import ProfileStatus from "./ProfileStatus";
 
 type ProfileInfoProps = {
     profile: UserProfileType
+    status: string
+    updateStatus: (status: string) => void
 
 }
 
@@ -23,7 +25,7 @@ export const ProfileInfo = (props: ProfileInfoProps) => {
             <div className={s.description}>
                 <img src={props.profile.photos?.small} alt="userAvatar" className={s.userAvatar}/>
                 <div>{props.profile.aboutMe}</div>
-                <ProfileStatus status={'Hello my friends'}/>
+                <ProfileStatus status={props.status}  updateStatus={props.updateStatus}/>
                 {/*<h3>My Contacts :</h3>*/}
                 {/*<div>GITHUB : {props.profile.contacts.github === null ? 'user did not add any info' : props.profile.contacts.github}</div>*/}
                 {/*<div> VK : {props.profile.contacts.vk === null ? 'user did not add any info' : props.profile.contacts.vk}</div>*/}

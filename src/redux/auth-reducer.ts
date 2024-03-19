@@ -34,7 +34,6 @@ const authReducer = (state: InitialUserReducerStateType = initialState, action: 
 }
 
 export const setAuthUserData = (data: userAuthDataType)  => {
-    debugger
     return {
         type: "SET-USER-DATA",
         data
