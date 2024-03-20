@@ -30,7 +30,7 @@ export type messagesDataType ={
 export const Dialogs = (props:DialogsPropsType ) => {
 
     let mappedDialogs = props.dialogsPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/> )
-    let mappedMessages = props.dialogsPage.messages.map(m => <Message message={m.message}/> )
+    let mappedMessages = props.dialogsPage.messages.map(m => < Message key={m.id} message={m.message}/> )
 
     const addMessage = ()=> {
         props.addMessage()

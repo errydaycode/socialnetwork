@@ -1,10 +1,10 @@
-import React, {ReactComponentElement} from 'react';
+import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {getStatus, setUserProfileTC, updateStatus} from "../../redux/profile-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
 import {UserProfileType} from "../../redux/store";
-import {Redirect, RouteComponentProps, useLocation, useParams, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedicrect} from "../../hoc/withAuthRedicrect";
 import {compose} from "redux";
 
@@ -18,13 +18,18 @@ class ProfileContainer extends React.Component<CommonPropsType> {
     componentDidMount() {
         //debugger
         let userId = this.props.match.params.userId
-        console.log(this.props.match.params)
+        console.log(this.props.match.params) // почему тут undefined
         if (!userId) {
-            userId = '2'
+            userId = '29932'
+            // почему когда я руками ввожу id пользователя в урл, мне ничего не показывается, а в урле появляется вместо id login
+            // и когда это происходит, мой статус так же сбрасывается
         }
         this.props.setUserProfileTC(userId)
         this.props.getStatus(userId)
+        // this.props.updateStatus('3333')
     }
+
+
 
     render() {
 
@@ -33,7 +38,7 @@ class ProfileContainer extends React.Component<CommonPropsType> {
             <div>
                 <Profile profile={this.props.profile}
                          status={this.props.status}
-                         updateStatus={updateStatus}
+                         updateStatus={this.props.updateStatus}
                 />
             </div>
         );

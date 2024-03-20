@@ -11,7 +11,7 @@ let initialState = {
     ] as Array<postsDataType>,
     newPostText: '',
     profile:  {} as UserProfileType,
-    status: 'xd'
+    status: ''
 }
 
 export type InitialProfileReducerStateType =  typeof initialState
@@ -66,7 +66,7 @@ export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as 
 export const setUserProfileTC = (userId: string) => (dispatch: Dispatch) => {
     profileApi.getUserProfile(userId)
         .then((res) => {
-            //console.log(res.data)
+            console.log(res.data)
             dispatch(setUserProfile(res))
         })
 }
@@ -82,7 +82,7 @@ export const getStatus = (userId: string) => (dispatch: Dispatch) => {
 export const updateStatus = (status: string) => (dispatch: Dispatch) => {
     profileApi.updateStatus(status)
         .then((res) =>  {
-            if(res.data.resultCode = 0) {
+            if(res.data.resultCode == 0) {
                 dispatch(setStatusAC(status))
             }
 
