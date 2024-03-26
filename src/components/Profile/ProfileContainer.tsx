@@ -16,19 +16,17 @@ import {compose} from "redux";
 class ProfileContainer extends React.Component<CommonPropsType> {
 
     componentDidMount() {
-        //debugger
         let userId = this.props.match.params.userId
-        console.log(this.props.match.params) // почему тут undefined
         if (!userId) {
-            userId = '29932'
-            // почему когда я руками ввожу id пользователя в урл, мне ничего не показывается, а в урле появляется вместо id login
-            // и когда это происходит, мой статус так же сбрасывается
+            userId = this.props.authorizedUserId
         }
-        this.props.setUserProfileTC(userId)
-        this.props.getStatus(userId)
-        // this.props.updateStatus('3333')
-    }
+        if(userId) {
+            this.props.setUserProfileTC(userId)
+            this.props.getStatus(userId)
+        }
 
+
+    }
 
 
     render() {
@@ -45,10 +43,12 @@ class ProfileContainer extends React.Component<CommonPropsType> {
     }
 }
 
-let mapStateToProps = (state: AppRootStateType) => {
+let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 }
 export default compose<React.ComponentType>(
@@ -56,10 +56,6 @@ export default compose<React.ComponentType>(
     withRouter,
     withAuthRedicrect
 )(ProfileContainer)
-
-
-
-
 
 
 // let AuthRedirectComponent = withAuthRedicrect(ProfileContainer)
@@ -71,18 +67,21 @@ export default compose<React.ComponentType>(
 
 
 type PathParamsType = {
-    userId: string
+    userId: number | null
 }
 
 type mapStateToPropsType = {
     profile: UserProfileType
     isAuth: boolean | undefined
     status: string
+    authorizedUserId: number | null
 }
 type mapDispatchToPropsType = {
-    setUserProfileTC: (userId: string) => void
-    getStatus: (userId: string) => void
+    setUserProfileTC: (userId: number) => void
+    getStatus: (userId: number) => void
     updateStatus: (status: string) => void
 }
 export type OwnPropsType = mapStateToPropsType & mapDispatchToPropsType
+
+// @ts-ignore
 type CommonPropsType = RouteComponentProps<PathParamsType> & OwnPropsType

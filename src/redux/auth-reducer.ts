@@ -1,11 +1,7 @@
-import {authApi, usersAPI} from "../api/api";
+import {authApi} from "../api/api";
 import {Dispatch} from "redux";
-import {setCurrentPage, setTotalUsersCount, setUsers, toggleIsFetching} from "./users-reducer";
-import exp from "constants";
 import {AppThunkType} from "./redux-store";
-
-
-
+import {stopSubmit} from "redux-form";
 
 
 export type userAuthDataType = {
@@ -71,11 +67,13 @@ export const getAuthUserData = () =>  (dispatch: Dispatch) => {
 }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunkType => async (dispatch) => {
+
     let response = await authApi.login(email, password, rememberMe)
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData())
     } else {
-
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+        dispatch(stopSubmit("login", {_error: message}))
     }
 }
 
@@ -83,6 +81,8 @@ export const logoutTC = (): AppThunkType => async (dispatch) => {
     let response = await authApi.logout()
     if (response.data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false))
+    } else {
+
     }
 }
 

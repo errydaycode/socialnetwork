@@ -64,7 +64,7 @@ export type UserProfileType = {
 	lookingForAJob: boolean;
 	lookingForAJobDescription: string;
 	fullName: string;
-	userId: string;
+	userId: number;
 	photos: UserProfileTypePhotos;
 }
 export type UserProfileTypeContacts = {
