@@ -1,5 +1,12 @@
 import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Input} from "../common/FormsControls/FormsControls";
+import {required} from "../../utils/valitators/validators";
+import {authApi} from "../../api/api";
+import {connect, useDispatch} from "react-redux";
+import {loginTC} from "../../redux/auth-reducer";
+import {Redirect} from "react-router-dom";
+import {AppRootStateType} from "../../redux/redux-store";
 
 
 type FormDataType = {
@@ -12,10 +19,10 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
     return (
             <form onSubmit={props.handleSubmit}>
-                <div><Field placeholder={'login'} name={'login'} component={'input'}/> </div>
-                <div><Field placeholder={'password'} name={'password'} component={'input'}/> </div>
+                <div><Field placeholder={'login'} name={'login'} component={Input} validate={[required]}/> </div>
+                <div><Field placeholder={'password'} name={'password'} type={'password'} component={Input} validate={[required]}/> </div>
                 <div>
-                    <Field type="checkbox" name={'rememberMe'} component={'input'}/>
+                    <Field type="checkbox" name={'rememberMe'} component={Input}/>
                     Remember me
                 </div>
                 <div>
@@ -31,9 +38,28 @@ const LoginReduxForm = reduxForm<FormDataType>({
     form: 'login'
 })(LoginForm)
 
-export const Login = () => {
+
+
+
+type LoginMDTPtype = {
+    loginTC: (email: string, password: string, rememberMe: boolean) => void
+}
+
+type LoginMSTPtype = {
+    isAuth: boolean
+}
+
+type LoginType = LoginMDTPtype & LoginMSTPtype
+
+ const Login = ({loginTC, isAuth }: LoginType) => {
+    // const dispatch = useDispatch()
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+        const {login, password, rememberMe} = formData
+        loginTC(login, password, rememberMe)
+    }
+
+    if(isAuth) {
+        return <Redirect to={'/profile'}/>
     }
 
     return (
@@ -44,3 +70,7 @@ export const Login = () => {
 
     );
 };
+
+
+const mapStateToProps = (state: AppRootStateType): LoginMSTPtype => ({isAuth: state.auth.isAuth})
+export  default connect(mapStateToProps, {loginTC})(Login)

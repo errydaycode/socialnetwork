@@ -1,11 +1,10 @@
 import React from 'react';
-import {AddMessageAC, UpdateNewMessageTextAC} from "../../redux/dialogs-reducer";
+import {AddMessageAC} from "../../redux/dialogs-reducer";
 import {ActionTypes, messagesPageType} from "../../redux/store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {compose, Dispatch} from "redux";
-import {Redirect} from "react-router-dom";
 import {withAuthRedicrect} from "../../hoc/withAuthRedicrect";
 
 //
@@ -53,31 +52,27 @@ import {withAuthRedicrect} from "../../hoc/withAuthRedicrect";
 
 type mapStateToPropsType = {
     dialogsPage: messagesPageType
-    newMessageText: string
+
     isAuth: boolean | undefined
 }
 type mapDispatchToPropsType = {
-    updateNewMessageBody: (newMessageBody: string)=> void
-    addMessage: () => void
+    addMessage: (newMessageBody: string) => void
 }
 
 
 export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 
- let mapStateToProps = (state: AppRootStateType) => {
+ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
         return {
             dialogsPage: state.messagesPage,
-            newMessageText: state.messagesPage.newMessageText,
+            isAuth: state.auth.isAuth
         }
 }
- let mapDispatchToProps = (dispatch: Dispatch<ActionTypes>) => {
+ let mapDispatchToProps = (dispatch: Dispatch<ActionTypes>):mapDispatchToPropsType  => {
      return {
-         updateNewMessageBody: (newMessageBody: string)=> {
-             dispatch(UpdateNewMessageTextAC(newMessageBody))
-         },
-         addMessage: () => {
-             dispatch(AddMessageAC())
+         addMessage: (newMessageText: string) => {
+             dispatch(AddMessageAC(newMessageText))
          }
      }
  }

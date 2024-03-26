@@ -18,8 +18,7 @@ import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
          {id: 4, message: 'Yo!'},
          {id: 5, message: 'Russia!'},
          {id: 6, message: 'USA!'}
-     ] as messagesDataType[],
-     newMessageText: ''
+     ] as messagesDataType[]
  };
 
 export type InitialDialogsReducerStateType =  typeof initialState
@@ -28,31 +27,22 @@ const DialogsReducer = (state: InitialDialogsReducerStateType = initialState, ac
         case 'SEND-MESSAGE':
             const newMessage: messagesDataType = {
                 id: state.messages.length + 1,
-                message: state.newMessageText
+                message: action.newMessageText
             }
             return {
                 ...state,
                     messages: [newMessage, ...state.messages],
-                    newMessageText: ''
             }
-        case "UPD-NEW-MESSAGE-TEXT":
-            return {
-                ...state,
-                    newMessageText: action.messageText
-            }
+
         default:
             return state
     }
 }
-export const AddMessageAC = ()  => {
+export const AddMessageAC = (newMessageText: string)  => {
     return {
-        type: 'SEND-MESSAGE'
+        type: 'SEND-MESSAGE',
+        newMessageText
     } as const
 }
-export const UpdateNewMessageTextAC = (messageText: string) => {
-    return {
-        type: 'UPD-NEW-MESSAGE-TEXT',
-        messageText
-    } as const
-}
+
 export default DialogsReducer;

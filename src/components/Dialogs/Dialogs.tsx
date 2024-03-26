@@ -1,16 +1,18 @@
-import React, {ChangeEvent, KeyboardEvent}  from 'react';
-import  s from './Dialogs.module.css'
+import React from 'react';
+import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {DialogsPropsType} from "./DialogsContainer";
-import {Redirect} from "react-router-dom";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {TextArea} from "../common/FormsControls/FormsControls";
+import {maxLengthCreator, required} from "../../utils/valitators/validators";
 
 
-export type dialogsDataType ={
+export type dialogsDataType = {
     id: number
     name: string
 }
-export type messagesDataType ={
+export type messagesDataType = {
     id: number
     message: string
 }
@@ -27,24 +29,22 @@ export type messagesDataType ={
 //     addMessage: ()=> void
 // }
 
-export const Dialogs = (props:DialogsPropsType ) => {
+type FormDataType = {
+    newMessageText: string
+}
 
-    let mappedDialogs = props.dialogsPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/> )
-    let mappedMessages = props.dialogsPage.messages.map(m => < Message key={m.id} message={m.message}/> )
+const maxLength50 = maxLengthCreator(50)
 
-    const addMessage = ()=> {
-        props.addMessage()
-    }
-    const onKeyDownHandler =(e: KeyboardEvent<HTMLTextAreaElement>)=> {
-        if(e.key === 'Enter') {
-            addMessage()
-        }
-    }
-    const onNewMessageChangeHandler =(e: ChangeEvent<HTMLTextAreaElement>)=> {
-        let newMessageBody = e.currentTarget.value
-        props.updateNewMessageBody(newMessageBody)
+export const Dialogs = (props: DialogsPropsType) => {
 
+    let mappedDialogs = props.dialogsPage.dialogs.map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>)
+    let mappedMessages = props.dialogsPage.messages.map(m => < Message key={m.id} message={m.message}/>)
+
+    const addMessage = (values: FormDataType) => {
+        // alert(values.newMessageText)
+        props.addMessage(values.newMessageText)
     }
+
 
 
 
@@ -57,16 +57,34 @@ export const Dialogs = (props:DialogsPropsType ) => {
                 {mappedMessages}
             </div>
             <div>
-                <textarea
-                    placeholder={'Type...'}
-                        onKeyDown={onKeyDownHandler}
-                          value={props.newMessageText}
-                          onChange={onNewMessageChangeHandler}>
-                </textarea>
-                <button  onClick={addMessage}>send message</button>
+                <AddMessageFormRedux onSubmit={addMessage}/>
             </div>
 
         </div>
     );
 };
+
+export const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+
+    return <>
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field component={TextArea}
+                       name={'newMessageText'}
+                       validate={[required, maxLength50]}
+                       placeholder={'Enter your message..'}/>
+            </div>
+            <div>
+                <button>send message</button>
+            </div>
+        </form>
+    </>
+}
+
+const AddMessageFormRedux = reduxForm<FormDataType>({
+    // a unique name for the form
+    form: 'addMessage'
+})(AddMessageForm)
+
+
 

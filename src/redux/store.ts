@@ -1,25 +1,25 @@
 import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
 import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
-import ProfileReducer, {AddPostAC, setStatusAC, setUserProfile, UpdateNewPostTextAC} from "./profile-reducer";
+import ProfileReducer, {AddPostAC, setStatusAC, setUserProfile} from "./profile-reducer";
 import SidebarReducer from "./sidebar-reducer";
-import DialogsReducer, {AddMessageAC, UpdateNewMessageTextAC} from "./dialogs-reducer";
+import DialogsReducer, {AddMessageAC} from "./dialogs-reducer";
 import {
+    followSuccess,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
-    toggleIsFetching,
     toggleFollowingProgress,
-    unFollowSuccess, followSuccess
+    toggleIsFetching,
+    unFollowSuccess
 } from "./users-reducer";
 
 export type messagesPageType = {
     dialogs: dialogsDataType[]
     messages: messagesDataType[]
-    newMessageText: string
+
 }
 export type profilePageType = {
     posts: postsDataType[]
-    newPostText: string
     profile: UserProfileType
     status: string
 }
@@ -48,8 +48,7 @@ export type StoreType = {
 
 
 export type ActionTypes = ReturnType<typeof AddPostAC> |
-    ReturnType<typeof UpdateNewPostTextAC>|
-    ReturnType<typeof AddMessageAC> | ReturnType<typeof UpdateNewMessageTextAC> |
+    ReturnType<typeof AddMessageAC> |
     ReturnType<typeof followSuccess> | ReturnType<typeof unFollowSuccess> | ReturnType<typeof setUsers>
 | ReturnType<typeof setCurrentPage>
 | ReturnType<typeof setTotalUsersCount>
@@ -103,14 +102,13 @@ export const store: StoreType = {
                 {id: 5, message: 'Russia!'},
                 {id: 6, message: 'USA!'}
             ],
-            newMessageText: ''
+
         },
         profilePage: {
             posts: [
                 {id: 1, message: 'Ты... это...заходи, если что!..', likesCount: 172},
                 {id: 2, message: 'Щас спою!', likesCount: 172},
             ],
-            newPostText: '',
             profile: {} as UserProfileType,
             status: ''
         },

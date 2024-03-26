@@ -9,7 +9,7 @@ let initialState = {
         {id: 1, message: 'Ты... это...заходи, если что!..', likesCount: 172},
         {id: 2, message: 'Щас спою!', likesCount: 172},
     ] as Array<postsDataType>,
-    newPostText: '',
+
     profile:  {} as UserProfileType,
     status: ''
 }
@@ -21,18 +21,12 @@ const ProfileReducer = (state: InitialProfileReducerStateType = initialState, ac
             let newPost: postsDataType =
                 {
                     id: state.posts.length + 1,
-                    message: state.newPostText,
+                    message: action.text,
                     likesCount: 0
                 };
             return {
                 ...state,
                 posts: [newPost, ...state.posts],
-                newPostText: ''
-            }
-        case 'UPDATE-NEW-POST-TEXT':
-            return {
-                ...state,
-                newPostText: action.postMsg
             }
         case "SET-USER-PRFOFLE":
             return {
@@ -50,16 +44,10 @@ const ProfileReducer = (state: InitialProfileReducerStateType = initialState, ac
 
 }
 
-export const AddPostAC = ()  => ({type: 'ADD-POST'}  as const)
+export const AddPostAC = (text: string)  => ({type: 'ADD-POST', text}  as const)
 export const setUserProfile = (profile: UserProfileType)  => ({type: 'SET-USER-PRFOFLE', profile } as const)
 
-export const UpdateNewPostTextAC = (postMsg: string) => {
-    debugger
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        postMsg
-    } as const
-}
+
 export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as const)
 
 
