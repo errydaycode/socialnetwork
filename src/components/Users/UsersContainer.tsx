@@ -14,6 +14,13 @@ import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {withAuthRedicrect} from "../../hoc/withAuthRedicrect";
 import {compose} from "redux";
+import {
+    getCurrentPage, getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersSelector
+} from "../../redux/users-selector";
 
 type mapStateToPropsType = {
     users: UserType[]
@@ -34,12 +41,12 @@ type mapDispatchToPropsType = {
 export type UsersPageType = mapStateToPropsType & mapDispatchToPropsType
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUsersSelector(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 // let mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): mapDispatchToPropsType => {
@@ -107,7 +114,7 @@ export default compose<React.ComponentType>(
         toggleFollowingProgress,
         getUsersThunkCreator
     }),
-    withAuthRedicrect
+    //withAuthRedicrect
 )(UsersContainer)
 
 

@@ -20,8 +20,6 @@ let initialState: userAuthDataType = {
 }
 
 
-
-
 export type InitialUserReducerStateType =  typeof initialState
 const authReducer = (state: InitialUserReducerStateType = initialState, action: ReturnType<typeof setAuthUserData>): InitialUserReducerStateType => {
     switch (action.type) {
@@ -55,15 +53,20 @@ export const setAuthUserData = (id: number | null, login: string | null, email: 
 // }
 
 
-export const getAuthUserData = () =>  (dispatch: Dispatch) => {
-     authApi.isAuth()
-         .then((res) => {
-             console.log(res.resultCode)
-             if (res.resultCode === 0) {
-                 let {id, login, email} = res.data
-                 dispatch(setAuthUserData(id, login, email, true))
-             }
-         })
+export const getAuthUserData = () => async (dispatch: Dispatch) => {
+    let response = await authApi.isAuth()
+    if (response.resultCode === 0) {
+        let {id, login, email} = response.data
+        dispatch(setAuthUserData(id, login, email, true))
+    }
+     // authApi.isAuth()
+     //     .then((res) => {
+     //         console.log(res.resultCode)
+     //         if (res.resultCode === 0) {
+     //             let {id, login, email} = res.data
+     //             dispatch(setAuthUserData(id, login, email, true))
+     //         }
+     //     })
 }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunkType => async (dispatch) => {

@@ -6,6 +6,7 @@ import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
+import {appReducer} from "./app-reducer";
 
 
 let rootReducer = combineReducers( {
@@ -14,7 +15,8 @@ let rootReducer = combineReducers( {
     navbar: SidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer
 }) // объект воспринимайте не как связка редьюсеров, а как стейт. Сколько веток в стейте - столько и редьюсеров тут.
 
 
