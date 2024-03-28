@@ -2,6 +2,7 @@ import React from 'react';
 import s from './ProfileInfo.module.css'
 import {UserProfileType} from "../../../redux/store";
 import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 type ProfileInfoProps = {
     profile: UserProfileType
@@ -25,7 +26,7 @@ export const ProfileInfo = (props: ProfileInfoProps) => {
             <div className={s.description}>
                 <img src={props.profile.photos?.small} alt="userAvatar" className={s.userAvatar}/>
                 <div>{props.profile.aboutMe}</div>
-                <ProfileStatus status={props.status}  updateStatus={props.updateStatus}/>
+                <ProfileStatusWithHooks status={props.status}  updateStatus={props.updateStatus}/>
                 {/*<h3>My Contacts :</h3>*/}
                 {/*<div>GITHUB : {props.profile.contacts.github === null ? 'user did not add any info' : props.profile.contacts.github}</div>*/}
                 {/*<div> VK : {props.profile.contacts.vk === null ? 'user did not add any info' : props.profile.contacts.vk}</div>*/}

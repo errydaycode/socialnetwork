@@ -1,11 +1,10 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React from 'react';
 import s from './Myposts.module.css'
 import {Post} from "./Post/Post";
 import {PostsPropsType} from "./MyPostsContainer";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utils/valitators/validators";
 import {TextArea} from "../../common/FormsControls/FormsControls";
-
 
 
 export type postsDataType = {
@@ -25,28 +24,29 @@ type FormDataType = {
 //     updateNewPostText: (text: string)=> void
 // }
 const maxLength10 = maxLengthCreator(10)
-const
-    MyPosts = (props: PostsPropsType) => {
 
-        let mappedPosts = props.posts.map((post, index) => <Post key={index} message={post.message} likesCount={post.likesCount}/>)
+const MyPosts = React.memo((props: PostsPropsType) => {
 
-        let onAddPost = (values: FormDataType) => {
-            debugger
-            props.addPostHandler(values.newPostText)
-        }
+    let mappedPosts = props.posts.map((post, index) =>
+        <Post key={index} message={post.message} likesCount={post.likesCount}/>)
 
-        return (
-            <div className={s.postsBlock}>
-                <h3>My posts</h3>
-                <div>
-                    <AddPostFormRedux onSubmit={onAddPost}/>
-                </div>
-                <div className={s.posts}>
-                    {mappedPosts}
-                </div>
+    let onAddPost = (values: FormDataType) => {
+        debugger
+        props.addPostHandler(values.newPostText)
+    }
+
+    return (
+        <div className={s.postsBlock}>
+            <h3>My posts</h3>
+            <div>
+                <AddPostFormRedux onSubmit={onAddPost}/>
             </div>
-        );
-    };
+            <div className={s.posts}>
+                {mappedPosts}
+            </div>
+        </div>
+    );
+});
 
 
 const AddPostForm : React.FC<InjectedFormProps<FormDataType>> = (props) => {
