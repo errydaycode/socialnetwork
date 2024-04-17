@@ -1,6 +1,6 @@
-import React, {KeyboardEvent} from 'react';
-import {AddPostAC} from "../../../redux/profile-reducer";
-import {ActionTypes, profilePageType, StoreType} from "../../../redux/store";
+import React from 'react';
+import {addPostAC} from "../../../redux/profile-reducer";
+import {ActionTypes} from "../../../redux/store";
 import MyPosts, {postsDataType} from "./MyPosts";
 
 import {connect} from "react-redux";
@@ -25,7 +25,7 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
 const mapDispatchToProps = (dispatch: Dispatch<ActionTypes>): mapDispatchToPropsType => {
     return {
         addPostHandler: (text: string) => {
-            dispatch(AddPostAC(text))
+            dispatch(addPostAC(text))
         }
     }
 }

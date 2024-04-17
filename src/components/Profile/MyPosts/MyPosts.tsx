@@ -27,7 +27,9 @@ const maxLength10 = maxLengthCreator(10)
 
 const MyPosts = React.memo((props: PostsPropsType) => {
 
-    let mappedPosts = props.posts.map((post, index) =>
+    let mappedPosts = [...props.posts]
+      .reverse()
+      .map((post, index) =>
         <Post key={index} message={post.message} likesCount={post.likesCount}/>)
 
     let onAddPost = (values: FormDataType) => {

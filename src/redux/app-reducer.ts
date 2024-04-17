@@ -24,7 +24,7 @@ export const appReducer = (state = initialState ,action:appActionType):InitialSt
 
 export type appActionType = | ReturnType<typeof initializedSuccess>
 
-export const initializedSuccess = () => ({type:"SET_INITIALIZED_SUCCESS"}as const)
+export const initializedSuccess = () => ({type:"SET_INITIALIZED_SUCCESS"} as const)
 
 
 export const initializedApp = ():AppThunkType => (dispatch) => {

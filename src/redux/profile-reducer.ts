@@ -38,13 +38,16 @@ const ProfileReducer = (state: InitialProfileReducerStateType = initialState, ac
                 ...state,
                 status: action.status
             }
+        case "DELETE-POST":
+            return {...state, posts: state.posts.filter(p => p.id !== action.id)}
         default:
             return state
     }
 
 }
 
-export const AddPostAC = (text: string)  => ({type: 'ADD-POST', text}  as const)
+export const addPostAC = (text: string)  => ({type: 'ADD-POST', text}  as const)
+export const deletePost = (id: number)  => ({type: 'DELETE-POST', id}  as const)
 export const setUserProfile = (profile: UserProfileType)  => ({type: 'SET-USER-PRFOFLE', profile } as const)
 
 
