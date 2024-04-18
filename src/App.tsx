@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter, Redirect, Route, withRouter} from "react-router-dom";
+import {Redirect, Route, withRouter} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
@@ -11,18 +11,12 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
-import {getAuthUserData} from "./redux/auth-reducer";
 import {compose} from "redux";
 import {initializedApp} from "./redux/app-reducer";
 import {AppRootStateType} from "./redux/redux-store";
 import Preloader from "./components/common/Preloader/Preloader";
 
-//
-// type AppPropsType ={
-//     state: statePropsType
-//     dispatch: (action : ActionTypes) => void
-//     store : StoreType
-// }
+
 
 class App extends React.Component<AppPropsType>{
 

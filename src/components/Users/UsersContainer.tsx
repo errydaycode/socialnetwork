@@ -3,19 +3,19 @@ import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {
     follow,
-    followingProgressType, followSuccess,
+    followingProgressType,
     getUsersThunkCreator,
     setCurrentPage,
-    toggleFollowingProgress, unfollow,
-    unFollowSuccess,
+    toggleFollowingProgress,
+    unfollow,
     UserType
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {withAuthRedicrect} from "../../hoc/withAuthRedicrect";
 import {compose} from "redux";
 import {
-    getCurrentPage, getFollowingInProgress,
+    getCurrentPage,
+    getFollowingInProgress,
     getIsFetching,
     getPageSize,
     getTotalUsersCount,

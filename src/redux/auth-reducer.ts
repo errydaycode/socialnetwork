@@ -23,7 +23,7 @@ let initialState: userAuthDataType = {
 export type InitialUserReducerStateType =  typeof initialState
 const authReducer = (state: InitialUserReducerStateType = initialState, action: ReturnType<typeof setAuthUserData>): InitialUserReducerStateType => {
     switch (action.type) {
-        case "SET-USER-DATA":
+        case "AUTH/SET-USER-DATA":
             return {...state, ...action.payload}
         default:
             return state
@@ -33,7 +33,7 @@ const authReducer = (state: InitialUserReducerStateType = initialState, action: 
 
 export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean) => {
     return {
-        type: "SET-USER-DATA",
+        type: "AUTH/SET-USER-DATA",
         payload: {
             id,
             login,

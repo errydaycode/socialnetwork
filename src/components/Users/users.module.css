@@ -4,14 +4,7 @@
 }
 
 
-.selectedPage {
-    font-weight: bold;
-    cursor: pointer;
-}
 
-.unSelectedPage {
-    cursor: pointer;
-}
 
 .preloader {
     width: 75px;
