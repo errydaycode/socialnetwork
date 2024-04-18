@@ -1,8 +1,15 @@
 .selectedPage {
     font-weight: bold;
     cursor: pointer;
+    color: black;
+    margin: 4px;
+
+
 }
 
 .unSelectedPage {
+    margin: 4px;
     cursor: pointer;
+
+
 }
