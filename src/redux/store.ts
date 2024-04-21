@@ -1,6 +1,6 @@
 import {dialogsDataType, messagesDataType} from "../components/Dialogs/Dialogs";
 import {postsDataType} from "../components/Profile/MyPosts/MyPosts";
-import ProfileReducer, {addPostAC, deletePost, setStatusAC, setUserProfile} from "./profile-reducer";
+import ProfileReducer, {addPostAC, deletePost, savePhotoSuccess, setStatusAC, setUserProfile} from "./profile-reducer";
 import SidebarReducer from "./sidebar-reducer";
 import DialogsReducer, {AddMessageAC} from "./dialogs-reducer";
 import {
@@ -57,6 +57,7 @@ export type ActionTypes = ReturnType<typeof addPostAC> |
     | ReturnType<typeof toggleFollowingProgress>
 | ReturnType<typeof setStatusAC>
 | ReturnType<typeof deletePost>
+| ReturnType<typeof savePhotoSuccess>
 
 
 export type UserProfileType = {
