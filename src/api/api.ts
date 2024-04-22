@@ -1,5 +1,4 @@
 import axios from "axios";
-import {UserProfileType} from "redux/store";
 
 const instance = axios.create({
     withCredentials: true,
@@ -27,13 +26,22 @@ export const authApi = {
         return instance.get('auth/me')
             .then(res => res.data)
     },
-    login(email: string, password: string, rememberMe: boolean = false) {
-        return instance.post(`auth/login`, {email, password, rememberMe})
+    login(email: string, password: string, rememberMe: boolean = false, captcha: string) {
+        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
     },
     logout() {
         return instance.delete(`auth/login`)
     }
 }
+
+
+export const securityApi = {
+    getCaptchaUrl() {
+        return instance.get(`security/get-captcha-url`)
+    }
+}
+
+
 
 export const profileApi = {
     getUserProfile(userId: number){
