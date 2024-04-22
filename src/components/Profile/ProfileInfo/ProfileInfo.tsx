@@ -1,9 +1,11 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from './ProfileInfo.module.css'
-import {UserProfileType} from "../../../redux/store";
-import ProfileStatus from "./ProfileStatus";
+import {UserProfileType} from "redux/store";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import UserPhoto from "./../../../assets/images/user.png"
+import {ProfileDataFormReduxForm} from "./ProfileDataForm";
+import {updateProfileInfoType} from "api/api";
+
 
 type ProfileInfoProps = {
   profile: UserProfileType
@@ -12,40 +14,92 @@ type ProfileInfoProps = {
   isOwner: boolean
 
   savePhoto: (newPhoto: File) => void
+  saveProfile: (formData: updateProfileInfoType) => Promise<any>
 }
 
-export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto}: ProfileInfoProps) => {
-  //debugger
-  // console.log(props.profile.contacts.vk)
+export const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}: ProfileInfoProps) => {
+
+  const [editMode, setEditMode] = useState(false)
 
   const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-      if(e.currentTarget?.files?.length) {
-        savePhoto(e.currentTarget.files[0])
-      }
+    if (e.currentTarget?.files?.length) {
+      savePhoto(e.currentTarget.files[0])
+    }
+  }
+  const onSubmit = (formData: any) => {
+    saveProfile(formData).then(() => {
+      setEditMode(false)
+    })
+    //
   }
 
   return (
+
     <div>
       <div>
-        {/*<img*/}
-        {/*    src="https://pristor.ru/wp-content/uploads/2018/10/%D0%9B%D1%83%D1%87%D1%88%D0%B8%D0%B5-%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8-%D0%BE%D0%B1%D0%BE%D0%B8-%D0%B4%D0%BB%D1%8F-%D0%BE%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B8-%D0%B2-%D0%92%D0%9A%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D0%B5-1590%D1%85400-%D0%BF%D0%BE%D0%B4%D0%B1%D0%BE%D1%80%D0%BA%D0%B0-6-1024x258.jpg"*/}
-        {/*    alt=""*/}
-        {/*    className={s.backImage}*/}
-        {/*/>*/}
       </div>
       <div className={s.description}>
         <img src={profile.photos?.large || UserPhoto} alt="userAvatar" className={s.userAvatar}/>
-        {isOwner && <input type="file" onChange={onMainPhotoSelected} />}
-        <div>{profile.aboutMe}</div>
+        {isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
+        {editMode ? <ProfileDataFormReduxForm onSubmit={onSubmit} initialValues={profile} /> :
+          <ProfileData profile={profile} isOwner={isOwner} activateEditMode={() => {
+            setEditMode(true)
+          }}/>}
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
-        {/*<h3>My Contacts :</h3>*/}
-        {/*<div>GITHUB : {props.profile.contacts.github === null ? 'user did not add any info' : props.profile.contacts.github}</div>*/}
-        {/*<div> VK : {props.profile.contacts.vk === null ? 'user did not add any info' : props.profile.contacts.vk}</div>*/}
-        {/*<div> FACEBOOK : {props.profile.contacts.facebook === null ? 'user did not add any info' :  props.profile.contacts.facebook}</div>*/}
-
       </div>
     </div>
 
   );
 };
 
+type ContactPropsType = {
+  contactTitle: string
+  contactValue: string
+}
+
+type Props = {
+  profile: UserProfileType
+  isOwner: boolean
+  activateEditMode: () => void
+}
+
+export const ProfileData = ({profile, isOwner, activateEditMode}: Props) => {
+
+  const {lookingForAJobDescription, lookingForAJob, fullName, aboutMe, userId, contacts,} = profile
+  return <div>
+    {isOwner && <div>
+        <button onClick={activateEditMode}>Edit info</button>
+    </div>}
+    <div>
+      <b>Full Name</b> {fullName}
+    </div>
+    <div>
+      <b>Looking for a job:</b> {lookingForAJob ? 'yes' : 'no'}
+    </div>
+    {
+      lookingForAJob &&
+        <div>
+            <b>My professional skills</b> : {lookingForAJobDescription}
+        </div>
+    }
+    <div>
+      <b>About me:</b> {aboutMe}
+    </div>
+    <div>
+      <b>Contacts:</b> {Object.keys(contacts || {})?.map((key) => {
+      // @ts-ignore
+      return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+    })}
+    </div>
+
+
+  </div>
+}
+
+
+
+export const Contact = ({contactTitle, contactValue}: ContactPropsType) => {
+  return <div className={s.contact}>
+    <b>{contactTitle}</b>: {contactValue}
+  </div>
+}

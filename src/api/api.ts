@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UserProfileType} from "redux/store";
 
 const instance = axios.create({
     withCredentials: true,
@@ -53,5 +54,16 @@ export const profileApi = {
                 'Content-Type' : 'multipart/form-data'
             }
         } )
+    },
+    saveProfile(profile: updateProfileInfoType) {
+        return instance.put('profile', profile)
     }
+}
+
+export type updateProfileInfoType = {
+    fullName: string
+    lfj : boolean
+    mySkills: string
+    aboutMe: string
+
 }

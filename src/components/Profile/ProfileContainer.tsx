@@ -1,12 +1,13 @@
 import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getStatus, savePhoto, setUserProfileTC, updateStatus} from "../../redux/profile-reducer";
+import {getStatus, savePhoto, saveProfile, setUserProfileTC, updateStatus} from "../../redux/profile-reducer";
 import {AppRootStateType} from "../../redux/redux-store";
 import {UserProfileType} from "../../redux/store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedicrect} from "../../hoc/withAuthRedicrect";
 import {compose} from "redux";
+import {updateProfileInfoType} from "api/api";
 
 // type ProfileProps = {
 //     store: StoreType
@@ -15,7 +16,12 @@ import {compose} from "redux";
 
 class ProfileContainer extends React.Component<CommonPropsType> {
 
+
+
+
+
     refreshProfile () {
+
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorizedUserId
@@ -51,6 +57,7 @@ class ProfileContainer extends React.Component<CommonPropsType> {
                          updateStatus={this.props.updateStatus}
                          isOwner={!this.props.match.params.userId}
                          savePhoto={this.props.savePhoto}
+                         saveProfile={this.props.saveProfile}
                 />
             </div>
         );
@@ -66,7 +73,7 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     }
 }
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {setUserProfileTC, getStatus, updateStatus, savePhoto}),
+    connect(mapStateToProps, {setUserProfileTC, getStatus, updateStatus, savePhoto, saveProfile}),
     withRouter,
     withAuthRedicrect
 )(ProfileContainer)
@@ -95,6 +102,7 @@ type mapDispatchToPropsType = {
     getStatus: (userId: number) => void
     updateStatus: (status: string) => void
     savePhoto: (newPhoto: File) => void
+    saveProfile: (formData: updateProfileInfoType) => Promise<any>
 
 }
 export type OwnPropsType = mapStateToPropsType & mapDispatchToPropsType

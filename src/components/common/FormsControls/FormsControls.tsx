@@ -1,8 +1,17 @@
-import React from 'react';
+import React, {FC, ReactNode} from 'react';
 import styles from './FormControls.module.css'
+import {WrappedFieldProps} from "redux-form";
 
 
-const FormControl = ({input, meta, children, ...props}: any) => {
+type FormsControlsType = {
+    formType: 'input' | 'textarea' | 'checkbox';
+};
+
+type FormControlProps = WrappedFieldProps & FormsControlsType & {
+    children: ReactNode;
+};
+
+const FormControl: FC<FormControlProps> = ({input, meta, children, ...props}) => {
     const hasError = meta.touched && meta.error
 
     return (
@@ -13,13 +22,10 @@ const FormControl = ({input, meta, children, ...props}: any) => {
     );
 }
 
-export const TextArea = (props: any) => {
-    const {input, meta, child, ...restProps} = props
-    return <FormControl {...props}><textarea {...restProps} {...input} /></FormControl>
+export const TextArea: FC<FormControlProps> = ({ input, meta, children, ...restProps }) => {
+    return <FormControl {...restProps} input={input} meta={meta} formType="textarea">{children}<textarea {...input} /></FormControl>
 };
 
-export const Input = (props: any) => {
-    const {input, meta, child, ...restProps} = props
-    return <FormControl {...props}><input {...restProps} {...input} /></FormControl>
+export const Input: FC<FormControlProps> = ({ input, meta, children, ...restProps }) => {
+    return <FormControl {...restProps} input={input} meta={meta} formType="input">{children}<input {...input} {...restProps} /></FormControl>
 };
-

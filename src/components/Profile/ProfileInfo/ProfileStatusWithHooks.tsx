@@ -33,7 +33,7 @@ const ProfileStatusWithHooks = (props:ProfileStatusPropsType) => {
 
     return (
         !edit
-            ? <span onDoubleClick={EditModeSwitch}>{props.status||'empty status'}</span>
+            ? <div><b>Status: </b> <span onDoubleClick={EditModeSwitch}>{props.status || 'empty status'}</span></div>
             : <input value={status} onChange={onChangeHandler} onBlur={EditModeSwitch} autoFocus onKeyDown={onKeyPressHandler}/>
     )
 }

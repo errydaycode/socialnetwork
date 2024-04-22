@@ -4,7 +4,7 @@ import DialogsReducer from "./dialogs-reducer";
 import SidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
-import thunk, {ThunkAction} from "redux-thunk";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 import {appReducer} from "./app-reducer";
 
@@ -27,5 +27,7 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppThunkType<ReturnType = void> = ThunkAction<void, AppRootStateType, unknown, AnyAction>
 // автоматически, createStore создает внутри себя стейт, с теми св-вами, что мы указали в рутовом редьюсере
 
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>;
+
+export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>;
 // @ts-ignore
-window.store = store
